@@ -1,0 +1,173 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachineInstance
+metadata:
+  annotations:
+    kubevirt.io/latest-observed-api-version: v1
+    kubevirt.io/storage-observed-api-version: v1alpha3
+  selfLink: /apis/kubevirt.io/v1/namespaces/thesis-virt/virtualmachineinstances/fedora
+  resourceVersion: '1538547'
+  name: fedora
+  uid: 7a660d7a-b262-4cba-ad43-4a1f4393402a
+  creationTimestamp: '2021-08-19T15:35:15Z'
+  generation: 9
+  managedFields:
+    - apiVersion: kubevirt.io/v1alpha3
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            .: {}
+            'f:kubevirt.io/latest-observed-api-version': {}
+            'f:kubevirt.io/storage-observed-api-version': {}
+          'f:finalizers': {}
+          'f:labels':
+            .: {}
+            'f:kubevirt.io/domain': {}
+            'f:kubevirt.io/nodeName': {}
+          'f:ownerReferences': {}
+        'f:spec':
+          .: {}
+          'f:domain':
+            .: {}
+            'f:cpu':
+              .: {}
+              'f:cores': {}
+            'f:devices':
+              .: {}
+              'f:disks': {}
+            'f:firmware':
+              .: {}
+              'f:uuid': {}
+            'f:machine':
+              .: {}
+              'f:type': {}
+            'f:resources':
+              .: {}
+              'f:requests':
+                .: {}
+                'f:memory': {}
+          'f:volumes': {}
+        'f:status':
+          'f:volumeStatus': {}
+          'f:nodeName': {}
+          'f:phase': {}
+          'f:activePods':
+            .: {}
+            'f:43bc98fd-d48c-48c3-8712-cdab7cbdb755': {}
+          'f:launcherContainerImageVersion': {}
+          'f:conditions': {}
+          .: {}
+          'f:interfaces': {}
+          'f:guestOSInfo': {}
+          'f:qosClass': {}
+          'f:phaseTransitionTimestamps': {}
+          'f:migrationMethod': {}
+      manager: Go-http-client
+      operation: Update
+      time: '2021-08-19T15:35:54Z'
+  namespace: thesis-virt
+  ownerReferences:
+    - apiVersion: kubevirt.io/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: VirtualMachine
+      name: fedora
+      uid: 454a366e-7c14-44c0-b67f-3777d9fb5b72
+  finalizers:
+    - kubevirt.io/virtualMachineControllerFinalize
+    - foregroundDeleteVirtualMachine
+  labels:
+    kubevirt.io/domain: fedora
+    kubevirt.io/nodeName: azure-ocp-s3sgm-vwvxm-worker-southeastasia3-4rj5x
+spec:
+  domain:
+    cpu:
+      cores: 2
+    devices:
+      disks:
+        - bootOrder: 1
+          disk:
+            bus: virtio
+          name: disk0
+        - cdrom:
+            bus: sata
+            readonly: true
+            tray: closed
+          name: cloudinitdisk
+      interfaces:
+        - bridge: {}
+          name: default
+    features:
+      acpi:
+        enabled: true
+    firmware:
+      uuid: 98f07cdd-96da-5880-b6c7-1a5700b73dc4
+    machine:
+      type: q35
+    resources:
+      requests:
+        cpu: 100m
+        memory: 1024M
+  networks:
+    - name: default
+      pod: {}
+  volumes:
+    - name: disk0
+      persistentVolumeClaim:
+        claimName: fedora
+    - cloudInitNoCloud:
+        userData: >
+          #cloud-config
+
+          hostname: fedora
+
+          ssh_pwauth: True
+
+          disable_root: false
+
+          ssh_authorized_keys:
+
+          - ssh-rsa
+          AAAAB3NzaC1yc2EAAAADAQABAAABgQC2YnDRdgURlnKgz6P9k3sMSWEFf/x8CW/iUlHk5SbUU+HqZFgNx8m0HjZq8JtiCuVzmppqu5zq1l4tX94qCmUPwxiCF8g/+FjC2s1EI0mD6f0C9CIZ+ZgZ7OPhlKEOs0l46XAfKA3jkzLSGEbxivSdo452UtWhEfzZPqS7n+NsHr4HbRgeIv2rFuvOb2koCETub7YcWyHKmm66izN9n+9d7Na7pCjyxQ6HKYdzNj0Sa/SmhMIVEUr0nXMEh0ywdhzwUoSjXHdsADY1N5P5rO+cqCsznKzpgIoflqVXvP63r830F3HevKY9p941vgegEIY77vkh0US9AevGP9lUPJXmCaRhg84kLuvbei6Vzaxl0pROSEQ9L4RaHlEBDs+KNIucCpcpfNOyZrcNCtvnd3tBSqqJK+JiNeFOmXU11udh8B1et9sWNUuRp4SmOCJ40b81vyJOaFxX8D+zT2H3C4O7p5st/XAqkWzJh9UUEh7wpQV6gSNxU+K4FcIHW6Q2CMU=
+          supakorn.t@MacBook-Pro-khxng-Supakorn.local
+      name: cloudinitdisk
+status:
+  qosClass: Burstable
+  guestOSInfo: {}
+  volumeStatus:
+    - name: cloudinitdisk
+      target: sda
+    - name: disk0
+      target: vda
+  phaseTransitionTimestamps:
+    - phase: Scheduling
+      phaseTransitionTimestamp: '2021-08-19T15:35:15Z'
+    - phase: Scheduled
+      phaseTransitionTimestamp: '2021-08-19T15:35:52Z'
+    - phase: Running
+      phaseTransitionTimestamp: '2021-08-19T15:35:54Z'
+  nodeName: azure-ocp-s3sgm-vwvxm-worker-southeastasia3-4rj5x
+  migrationMethod: BlockMigration
+  activePods:
+    43bc98fd-d48c-48c3-8712-cdab7cbdb755: azure-ocp-s3sgm-vwvxm-worker-southeastasia3-4rj5x
+  conditions:
+    - lastProbeTime: null
+      lastTransitionTime: '2021-08-19T15:35:51Z'
+      status: 'True'
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: null
+      message: >-
+        cannot migrate VMI: PVC fedora is not shared, live migration requires
+        that all PVCs must be shared (using ReadWriteMany access mode)
+      reason: DisksNotLiveMigratable
+      status: 'False'
+      type: LiveMigratable
+  interfaces:
+    - ipAddress: 10.128.2.20
+      ipAddresses:
+        - 10.128.2.20
+      mac: '0a:58:0a:80:02:14'
+      name: default
+  phase: Running
+  launcherContainerImageVersion: 'quay.io/kubevirt/virt-launcher:v0.44.1'

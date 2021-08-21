@@ -1,0 +1,27 @@
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+#   name: fedora-harddisk-pv
+# spec:
+#   accessModes:
+#   - ReadWriteOnce
+#   storageClassName: managed-premium
+#   capacity:
+#     storage: 50Gi
+#   # iscsi:
+#   #   targetPortal: example.com:3260
+#   #   iqn: iqn.2013-07.com.example:iscsi-nopool/
+#   #   lun: 0
+# ---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: fedora-harddisk
+spec:
+  accessModes:
+  - ReadWriteOnce
+  volumeMode: Block
+  storageClassName: managed-premium
+  resources:
+    requests:
+      storage: 50Gi
