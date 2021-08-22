@@ -41,6 +41,9 @@ spec:
         - cloudInitNoCloud:
             userData: |
               #cloud-config
+              packages:
+              - nginx
+              - qemu-guest-agent
 
               hostname: ubuntu
 
