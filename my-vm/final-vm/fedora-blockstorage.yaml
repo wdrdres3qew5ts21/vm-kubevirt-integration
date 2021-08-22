@@ -21,14 +21,11 @@ spec:
             - bootOrder: 1
               disk:
                 bus: virtio
-              name: fedora
+              name: blockdisk
             - cdrom:
                 bus: sata
                 readonly: true
               name: cloudinitdisk
-            - disk:
-                bus: virtio
-              name: blockdisk
         machine:
           type: q35
         resources:
@@ -55,25 +52,25 @@ spec:
               supakorn.t@MacBook-Pro-khxng-Supakorn.local
           name: cloudinitdisk
         - dataVolume:
-            name: fedora-blockdisk-tqm34
+            name: fedora-blockdisk
           name: blockdisk
 
   dataVolumeTemplates:
+    # - metadata:
+    #     name: fedora
+    #   spec:
+    #     pvc:
+    #       accessModes:
+    #         - ReadWriteOnce
+    #       resources:
+    #         requests:
+    #           storage: 5Gi
+    #     source:
+    #       pvc:
+    #         name: fedora-iso-dv
+    #         namespace: thesis-virt
     - metadata:
-        name: fedora
-      spec:
-        pvc:
-          accessModes:
-            - ReadWriteOnce
-          resources:
-            requests:
-              storage: 5Gi
-        source:
-          pvc:
-            name: fedora-iso-dv
-            namespace: thesis-virt
-    - metadata:
-        name: fedora-blockdisk-tqm34
+        name: fedora-blockdisk
       spec:
         pvc:
           accessModes:
@@ -84,4 +81,6 @@ spec:
           storageClassName: managed-premium
           volumeMode: Block
         source:
-          blank: {}
+          pvc:
+            name: fedora-iso-dv
+            namespace: thesis-virt
