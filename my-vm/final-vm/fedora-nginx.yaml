@@ -42,7 +42,7 @@ spec:
               - nginx
               - podman
 
-              ssh_pwauth: True
+              ssh_pwauth: False
               disable_root: false
 
               ssh_authorized_keys:
