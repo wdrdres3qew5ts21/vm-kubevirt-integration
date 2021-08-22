@@ -37,16 +37,18 @@ spec:
             claimName: fedora-blockdisk-nginx
         - cloudInitNoCloud:
             userData: |
+              hostname: fedora
+              
               packages:
               - nginx
               - podman
-              hostname: fedora
+
               users:
               - name: root
-                  ssh_pwauth: True 
+                ssh_pwauth: True 
               - name: fedora 
-                  groups: users,wheel 
-                  ssh_pwauth: True 
+                groups: users,wheel 
+                ssh_pwauth: True 
               
               chpasswd:
                 list: |
