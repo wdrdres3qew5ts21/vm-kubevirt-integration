@@ -51,7 +51,16 @@ spec:
               AAAAB3NzaC1yc2EAAAADAQABAAABgQC2YnDRdgURlnKgz6P9k3sMSWEFf/x8CW/iUlHk5SbUU+HqZFgNx8m0HjZq8JtiCuVzmppqu5zq1l4tX94qCmUPwxiCF8g/+FjC2s1EI0mD6f0C9CIZ+ZgZ7OPhlKEOs0l46XAfKA3jkzLSGEbxivSdo452UtWhEfzZPqS7n+NsHr4HbRgeIv2rFuvOb2koCETub7YcWyHKmm66izN9n+9d7Na7pCjyxQ6HKYdzNj0Sa/SmhMIVEUr0nXMEh0ywdhzwUoSjXHdsADY1N5P5rO+cqCsznKzpgIoflqVXvP63r830F3HevKY9p941vgegEIY77vkh0US9AevGP9lUPJXmCaRhg84kLuvbei6Vzaxl0pROSEQ9L4RaHlEBDs+KNIucCpcpfNOyZrcNCtvnd3tBSqqJK+JiNeFOmXU11udh8B1et9sWNUuRp4SmOCJ40b81vyJOaFxX8D+zT2H3C4O7p5st/XAqkWzJh9UUEh7wpQV6gSNxU+K4FcIHW6Q2CMU=
               supakorn.t@MacBook-Pro-khxng-Supakorn.local
               
-
+              packages:
+              - nginx
+              - qemu-guest-agent
+              
+              runcmd:
+              - [ systemctl, daemon-reload ]
+              - [ systemctl, enable, nginx ]
+              - [ systemctl, start, --no-block, nginx ]
+              - [ systemctl, enable, qemu-guest-agent ]
+              - [ systemctl, start, --no-block, qemu-guest-agent ]
           name: cloudinitdisk
   dataVolumeTemplates:
     - metadata:
