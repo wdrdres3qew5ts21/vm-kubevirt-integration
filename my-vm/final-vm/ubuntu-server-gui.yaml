@@ -55,7 +55,7 @@ spec:
               supakorn.t@MacBook-Pro-khxng-Supakorn.local
           name: cloudinitdisk
         - dataVolume:
-            name: ubuntu-blockdisk-tqm34
+            name: ubuntu-blockdisk
           name: blockdisk
 
   dataVolumeTemplates:
@@ -84,4 +84,6 @@ spec:
           storageClassName: managed-premium
           volumeMode: Block
         source:
-          blank: {}
+          pvc:
+            name: ubuntu20-server-dv
+            namespace: thesis-virt
