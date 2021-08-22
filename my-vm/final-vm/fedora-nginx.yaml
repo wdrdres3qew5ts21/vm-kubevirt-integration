@@ -43,9 +43,10 @@ spec:
               hostname: fedora
               users:
               - name: root
+                  ssh_pwauth: True 
               - name: fedora 
-                groups: users,wheel 
-                ssh_pwauth: True 
+                  groups: users,wheel 
+                  ssh_pwauth: True 
               
               chpasswd:
                 list: |
