@@ -41,6 +41,11 @@ virtctl image-upload --pvc-name=win10-home --image-path="$PWD/win10.iso"  --size
 ```
 
 
+Argo Kubevirt
+```
+virtualmachines.kubevirt.io "ubuntu" is forbidden: User "system:serviceaccount:thesis-virt:argocd-argocd-application-controller" cannot patch resource "virtualmachines" in API group "kubevirt.io" in the namespace "thesis-virt"
+```
+
 ปัญหา
 1. IP เปลี่ยนเอง
 2. การจัดการ Disk หลายๆตัว
