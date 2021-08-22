@@ -38,7 +38,7 @@ spec:
         - cloudInitNoCloud:
             userData: |
               hostname: fedora
-              
+
               packages:
               - nginx
               - podman
@@ -52,8 +52,8 @@ spec:
               
               chpasswd:
                 list: |
-                  root: fedora
-                  fedora: fedora
+                  root:fedora
+                  fedora:fedora
                 expire: True
 
               
