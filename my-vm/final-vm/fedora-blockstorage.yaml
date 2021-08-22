@@ -39,7 +39,7 @@ spec:
             claimName: fedora
           name: fedora
         - cloudInitNoCloud:
-            userData: |
+            userData: |-
               #cloud-config
 
               hostname: fedora
@@ -57,7 +57,7 @@ spec:
               packages:
               - nginx
               - qemu-guest-agent
-              
+
               runcmd:
               - [ systemctl, daemon-reload ]
               - [ systemctl, enable, docker.service ]

@@ -39,7 +39,7 @@ spec:
           persistentVolumeClaim:
             claimName: ubuntu-object-vm
         - cloudInitNoCloud:
-            userData: |
+            userData: |-
               #cloud-config
               packages:
               - nginx
