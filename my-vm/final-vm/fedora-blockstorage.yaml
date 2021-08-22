@@ -21,6 +21,9 @@ spec:
             - bootOrder: 1
               disk:
                 bus: virtio
+              name: fedora
+            - disk:
+                bus: virtio
               name: blockdisk
             - cdrom:
                 bus: sata
@@ -32,6 +35,9 @@ spec:
           requests:
             memory: 1024M
       volumes:
+        - persistentVolumeClaim:
+            claimName: fedora
+          name: fedora
         - cloudInitNoCloud:
             userData: |
               #cloud-config
@@ -50,19 +56,19 @@ spec:
           name: blockdisk
 
   dataVolumeTemplates:
-    # - metadata:
-    #     name: fedora
-    #   spec:
-    #     pvc:
-    #       accessModes:
-    #         - ReadWriteOnce
-    #       resources:
-    #         requests:
-    #           storage: 5Gi
-    #     source:
-    #       pvc:
-    #         name: fedora-iso-dv
-    #         namespace: thesis-virt
+    - metadata:
+        name: fedora
+      spec:
+        pvc:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 5Gi
+        source:
+          pvc:
+            name: fedora-iso-dv
+            namespace: thesis-virt
     - metadata:
         name: fedora-blockdisk
       spec:
