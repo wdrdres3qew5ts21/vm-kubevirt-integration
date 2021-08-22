@@ -39,7 +39,7 @@ spec:
           persistentVolumeClaim:
             claimName: ubuntu
         - cloudInitNoCloud:
-            userData: >
+            userData: |
               #cloud-config
 
               hostname: ubuntu

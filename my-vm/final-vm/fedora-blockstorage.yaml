@@ -39,7 +39,7 @@ spec:
           persistentVolumeClaim:
             claimName: fedora
         - cloudInitNoCloud:
-            userData: >
+            userData: |
               #cloud-config
 
               hostname: fedora
