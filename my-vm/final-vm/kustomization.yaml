@@ -3,7 +3,7 @@ kind: Kustomization
 
 resources:
 - fedora-blockstorage.yaml
-# - fedora-nginx.yaml
+- fedora-nginx.yaml
 - ubuntu-pure-object.yaml
 - ubuntu-server-cloud.yaml 
 - ubuntu-server-gui.yaml
