@@ -52,3 +52,8 @@ virtualmachines.kubevirt.io "ubuntu" is forbidden: User "system:serviceaccount:t
 3. Migrate VM ไปอีก Node Hardware
 
 ไฟล์ system มันไปเก็บใน pvc ของ Base ISO Image เลยซึ่งมันผิด# vm-kubevirt-integration
+
+Trigger Argo Hook
+
+webook
+https://argoproj.github.io/argo-cd/operator-manual/webhook/
