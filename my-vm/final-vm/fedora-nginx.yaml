@@ -37,7 +37,6 @@ spec:
             claimName: fedora-blockdisk-nginx
         - cloudInitNoCloud:
             userData: |
-            
               hostname: fedora
 
               packages:
@@ -55,7 +54,7 @@ spec:
                 list: |
                   root:fedora
                   fedora:fedora
-                expire: True
+                expire: False
 
               
 
