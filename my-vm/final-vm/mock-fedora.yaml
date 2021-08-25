@@ -1,7 +1,7 @@
 apiVersion: kubevirt.io/v1alpha3
 kind: VirtualMachine
 metadata:
-  name: ubuntu-object-vm-mock
+  name: fedora-nginx-mock
   namespace: thesis-virt
   labels:
     kubevirt.io/os: linux
@@ -9,9 +9,8 @@ spec:
   running: true
   template:
     metadata:
-      creationTimestamp: null
       labels:
-        kubevirt.io/domain: ubuntu
+        kubevirt.io/domain: fedora
     spec:
       domain:
         cpu:
@@ -21,34 +20,27 @@ spec:
             - bootOrder: 1
               disk:
                 bus: virtio
-              name: ubuntu-object-vm
+              name: fedora
             - cdrom:
                 bus: sata
                 readonly: true
               name: cloudinitdisk
-            # - disk:
-            #     bus: virtio
-            #   name: blockdisk
         machine:
           type: q35
         resources:
           requests:
             memory: 1024M
       volumes:
-        - name: ubuntu-object-vm
+        - name: fedora
           persistentVolumeClaim:
-            claimName: ubuntu-object-vm-mock
+            claimName: fedora-blockdisk-nginx-mock
         - cloudInitNoCloud:
             secretRef:
-              name: cloud-init-ubuntu
+              name: cloud-init-fedora
           name: cloudinitdisk
-        # - dataVolume:
-        #     name: ubuntu-gui-blockdisk
-        #   name: blockdisk
-
   dataVolumeTemplates:
     - metadata:
-        name: ubuntu-object-vm-mock
+        name: fedora-blockdisk-nginx-mock
       spec:
         pvc:
           accessModes:
@@ -60,5 +52,5 @@ spec:
           volumeMode: Block
         source:
           pvc:
-            name: ubuntu20-cloud-img
+            name: fedora-iso-dv
             namespace: thesis-virt

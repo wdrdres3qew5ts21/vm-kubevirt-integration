@@ -1,0 +1,52 @@
+apiVersion: kubevirt.io/v1alpha3
+kind: VirtualMachine
+metadata:
+  name: win10-vm
+  namespace: thesis-virt
+spec:
+  running: true
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        kubevirt.io/domain: win10-vm
+    spec:
+      domain:
+        cpu:
+          cores: 2
+        devices:
+          disks:
+            # - bootOrder: 1
+            #   disk:
+            #     bus: sata
+            #   name: win10-vm
+            - bootOrder: 1
+              cdrom:
+                bus: sata
+                readonly: true
+              name: win10-vm
+        machine:
+          type: q35
+        resources:
+          requests:
+            memory: 1024M
+      volumes:
+        - persistentVolumeClaim:
+            claimName: win10-disk
+          name: win10-vm
+  dataVolumeTemplates:
+    - metadata:
+        name: win10-disk
+      spec:
+        pvc:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            storageClassName: managed-premium
+            volumeMode: Block
+            requests:
+              storage: 30Gi
+        source:
+          pvc:
+            name: win10-home
+            namespace: thesis-virt
