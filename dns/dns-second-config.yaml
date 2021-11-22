@@ -3,26 +3,6 @@ apiVersion: v1
 metadata:
   name: dns-config
   namespace: openshift-dns
-  uid: 88972c96-0912-4c48-a45a-b7a1cece5cd7
-  resourceVersion: '132813'
-  creationTimestamp: '2021-11-21T10:07:17Z'
-  managedFields:
-    - manager: kubectl-create
-      operation: Update
-      apiVersion: v1
-      time: '2021-11-21T10:07:17Z'
-      fieldsType: FieldsV1
-      fieldsV1:
-        'f:data': {}
-    - manager: Mozilla
-      operation: Update
-      apiVersion: v1
-      time: '2021-11-21T11:13:45Z'
-      fieldsType: FieldsV1
-      fieldsV1:
-        'f:data':
-          'f:Corefile': {}
-          'f:napzz-thesis-chula.com': {}
 data:
   Corefile: |
     napzz-thesis-chula.com:8053 {
