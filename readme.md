@@ -9,6 +9,13 @@ Create Resource Deployment to `kubevirt` namespace
 kubectl create -f https://github.com/kubevirt/kubevirt/releases/download/${VERSION}/kubevirt-cr.yaml
 
 https://kubevirt.io/user-guide/virtual_machines/templates/#templates
+
+export VERSION=$(curl -s https://github.com/kubevirt/containerized-data-importer/releases/latest | grep -o "v[0-9]\.[0-9]*\.[0-9]*")
+kubectl create -f https://github.com/kubevirt/containerized-data-importer/releases/download/$VERSION/cdi-operator.yaml
+kubectl create -f https://github.com/kubevirt/containerized-data-importer/releases/download/$VERSION/cdi-cr.yaml
+
+oc project kubevirt
+kubectl apply -f https://kubevirt.io/labs/manifests/vm.yaml
 ```
 Install  Mock VM
 ```
@@ -33,6 +40,7 @@ kubevirt_vmi_vcpu_seconds{domain="default_vm-test-01",id="0",name="vm-test-01",n
 
 Expose port
 ```
+oc new-project 
 virtctl image-upload dv  ubuntu20-server-cloud-dv  --image-path="$PWD/ubuntu-20-server.img" --size=5Gi --insecure
 
 virtctl expose vmi fedora --name=fedora-ssh-port --port=20222 --target-port=22
@@ -57,3 +65,10 @@ Trigger Argo Hook
 
 webook
 https://argoproj.github.io/argo-cd/operator-manual/webhook/
+
+
+
+Debug network
+
+
+dig @dns.openshift-dns.svc.cluster.local -p 8053 infra.napzz-thesis-chula.com

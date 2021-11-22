@@ -1,0 +1,15 @@
+apiVersion: cdi.kubevirt.io/v1alpha1
+kind: DataVolume
+metadata:
+  name: fedora-cloud-base
+  namespace: vm-images
+spec:
+  source:
+    registry:
+      url: "docker://quay.io/dvossel/fedora:cloud-base"
+  pvc:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 5Gi

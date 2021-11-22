@@ -1,0 +1,65 @@
+apiVersion: operator.openshift.io/v1
+kind: DNS
+metadata:
+  creationTimestamp: '2021-11-21T06:08:51Z'
+  finalizers:
+    - dns.operator.openshift.io/dns-controller
+  generation: 4
+  managedFields:
+    - apiVersion: operator.openshift.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:finalizers':
+            .: {}
+            'v:"dns.operator.openshift.io/dns-controller"': {}
+        'f:spec':
+          .: {}
+          'f:nodePlacement': {}
+        'f:status':
+          .: {}
+          'f:clusterDomain': {}
+          'f:clusterIP': {}
+          'f:conditions': {}
+      manager: dns-operator
+      operation: Update
+      time: '2021-11-21T06:08:53Z'
+    - apiVersion: operator.openshift.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:spec':
+          'f:servers': {}
+      manager: Mozilla
+      operation: Update
+      time: '2021-11-21T10:41:25Z'
+  name: default
+  resourceVersion: '120870'
+  uid: d1ffadd7-f96b-4919-823f-cba8dc5f1a52
+spec:
+  nodePlacement: {}
+  servers:
+    - forwardPlugin:
+        upstreams:
+          - '172.21.103.99:8053'
+      name: private-zone
+      zones:
+        - .
+status:
+  clusterDomain: cluster.local
+  clusterIP: 172.21.0.10
+  conditions:
+    - lastTransitionTime: '2021-11-21T10:46:23Z'
+      message: No DNS pods are available.
+      reason: NoDNSPodsAvailable
+      status: 'True'
+      type: Degraded
+    - lastTransitionTime: '2021-11-21T10:46:23Z'
+      message: 'Have 0 available DNS pods, want 3.'
+      reason: Reconciling
+      status: 'True'
+      type: Progressing
+    - lastTransitionTime: '2021-11-21T10:46:23Z'
+      message: The DNS daemonset has no pods available.
+      reason: NoDaemonSetPods
+      status: 'False'
+      type: Available

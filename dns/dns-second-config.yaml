@@ -1,0 +1,44 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: dns-config
+  namespace: openshift-dns
+  uid: 88972c96-0912-4c48-a45a-b7a1cece5cd7
+  resourceVersion: '132813'
+  creationTimestamp: '2021-11-21T10:07:17Z'
+  managedFields:
+    - manager: kubectl-create
+      operation: Update
+      apiVersion: v1
+      time: '2021-11-21T10:07:17Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:data': {}
+    - manager: Mozilla
+      operation: Update
+      apiVersion: v1
+      time: '2021-11-21T11:13:45Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:data':
+          'f:Corefile': {}
+          'f:napzz-thesis-chula.com': {}
+data:
+  Corefile: |
+    napzz-thesis-chula.com:8053 {
+        log stdout
+        file /etc/coredns/napzz-thesis-chula.com
+    }
+  napzz-thesis-chula.com: |
+    $TTL    1800
+    $ORIGIN napzz-thesis-chula.com.
+
+    @ IN SOA dns domains (
+        2020031101   ; serial
+        300          ; refresh
+        1800         ; retry
+        14400        ; expire
+        300 )        ; minimum
+
+    portal       IN  A  172.30.129.30
+    infra        IN  A  172.30.129.30

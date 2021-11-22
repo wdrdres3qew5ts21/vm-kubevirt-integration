@@ -2,7 +2,7 @@ apiVersion: kubevirt.io/v1alpha3
 kind: VirtualMachine
 metadata:
   name: ubuntu
-  namespace: thesis-virt
+  namespace: vm-images
   labels:
     kubevirt.io/os: linux
 spec:
@@ -71,7 +71,7 @@ spec:
         source:
           pvc:
             name: ubuntu20-server-cloud-dv 
-            namespace: thesis-virt
+            namespace: vm-images
     - metadata:
         name: ubuntu-blockdisk-tqm34
       spec:
