@@ -41,11 +41,27 @@ kubevirt_vmi_vcpu_seconds{domain="default_vm-test-01",id="0",name="vm-test-01",n
 Expose port
 ```
 oc new-project 
-virtctl image-upload dv  ubuntu20-server-cloud-dv  --image-path="$PWD/ubuntu-20-server.img" --size=5Gi --insecure
+
+oc project vm-images
+
+virtctl image-upload dv  ubuntu20-iso-dv  --image-path="$PWD/ubuntu-20-server.iso" --size=5Gi --insecure
 
 virtctl expose vmi fedora --name=fedora-ssh-port --port=20222 --target-port=22
 
 virtctl image-upload --pvc-name=win10-home --image-path="$PWD/win10.iso"  --size=5.5Gi  --insecure
+
+virtctl image-upload dv fedora35-iso-dv --image-path="$PWD/fedora-35-server.iso"  --size=5.5Gi  --insecure
+
+# Need using IMG or QCOW2 format for automatic boot system
+oc project vm-images
+
+virtctl image-upload dv  ubuntu20-cloud-dv  --image-path="$PWD/ubuntu-20-server.img" --size=5Gi --insecure
+
+virtctl image-upload dv fedora35-cloud-dv --image-path="$PWD/fedora-35-cloud.qcow2"  --size=5.5Gi  --insecure
+
+oc new-project legacy-company
+
+oc adm policy add-scc-to-user  ibm-anyuid-hostaccess-scc  -z default
 ```
 
 

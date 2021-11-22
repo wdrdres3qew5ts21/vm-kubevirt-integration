@@ -21,12 +21,12 @@ spec:
           - disk:
               bus: virtio
             name: disk0
-            bootOrder: 2
+            bootOrder: 1
           - cdrom:
               bus: sata
               readonly: true
             name: cloudinitdisk
-            bootOrder: 1
+            bootOrder: 2
         machine:
           type: q35
         resources:
