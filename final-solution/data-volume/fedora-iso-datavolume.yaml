@@ -1,18 +1,14 @@
 apiVersion: cdi.kubevirt.io/v1alpha1
 kind: DataVolume
 metadata:
-  name: fedora-iso-dv
+  name: fedora35-iso-dv
 spec:
   source:
-    pvc:
-      name: fedora
-      namespace: thesis-virt
     http:
       url: https://download.fedoraproject.org/pub/fedora/linux/releases/35/Cloud/x86_64/images/Fedora-Cloud-Base-35-1.2.x86_64.qcow2
-    
   pvc:
     accessModes:
       - ReadWriteOnce
     resources:
       requests:
-        storage: 10Gi
+        storage: 5Gi
