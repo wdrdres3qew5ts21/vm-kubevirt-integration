@@ -26,8 +26,6 @@ spec:
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       dnsPolicy: ClusterFirst
-        
-          
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -35,3 +33,4 @@ spec:
       maxSurge: 25%
   revisionHistoryLimit: 10
   progressDeadlineSeconds: 600
+---

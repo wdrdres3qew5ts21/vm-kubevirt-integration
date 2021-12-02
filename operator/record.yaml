@@ -1,0 +1,4 @@
+kind: DNSRecord
+apiVersion: chula.thesis.com/v1
+name: infra-record
+spec:

@@ -17,6 +17,14 @@ kubectl create -f https://github.com/kubevirt/containerized-data-importer/releas
 oc project kubevirt
 kubectl apply -f https://kubevirt.io/labs/manifests/vm.yaml
 ```
+CDI KubeVirt
+```
+export VERSION=$(curl -s https://github.com/kubevirt/containerized-data-importer/releases/latest | grep -o "v[0-9]\.[0-9]*\.[0-9]*")
+kubectl create -f https://github.com/kubevirt/containerized-data-importer/releases/download/$VERSION/cdi-operator.yaml
+kubectl create -f https://github.com/kubevirt/containerized-data-importer/releases/download/$VERSION/cdi-cr.yaml
+```
+
+
 Install  Mock VM
 ```
 oc get vms
@@ -88,3 +96,10 @@ Debug network
 
 
 dig @dns.openshift-dns.svc.cluster.local -p 8053 infra.napzz-thesis-chula.com
+
+http://www-inf.int-evry.fr/~hennequi/CoursDNS/NOTES-COURS_eng/syntax.html
+
+https://cloud.redhat.com/blog/using-the-multus-cni-in-openshift
+
+https://github.com/openshift/multus-cni/blob/master/docs/quickstart.md
+

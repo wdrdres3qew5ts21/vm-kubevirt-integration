@@ -3,6 +3,7 @@ apiVersion: cdi.kubevirt.io/v1alpha1
 kind: DataVolume
 metadata:
   name: ubuntu20-cloud-img
+  namespace: vm-images
 spec:
   source:
     http:

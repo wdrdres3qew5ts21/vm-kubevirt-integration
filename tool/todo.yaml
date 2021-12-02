@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: todoapp-frontend
+  name: todoapp-frontend
+  
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todoapp-frontend
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: todoapp-frontend
+      annotations:
+        k8s.v1.cni.cncf.io/networks: '[
+                { "name": "bridge-main",
+                "ips": ["192.168.12.13"]}]'
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: vmware-ocp-poxwk-1v8g-qbtnq-worker-q4c8c
+      containers:
+      - image: quay.io/linxianer12/todoapp-frontend:1.0.0
+        name: todoapp-frontend
+        resources: {}
+status: {}

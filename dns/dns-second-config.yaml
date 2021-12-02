@@ -22,8 +22,7 @@ data:
 
     ;PRIVATE_DNS_RECORD
     portal       IN  A  10.110.198.99
-    ;[1]ID: infra 
-    infra        IN  A  172.30.167.100
+    infra        IN  A  172.30.167.191
     ;END_PRIVATE_DNS_RECORD
 
     ;portal       IN  A  10.110.198.38
