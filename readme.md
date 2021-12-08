@@ -3,12 +3,14 @@
 export VERSION=$(curl -s https://api.github.com/repos/kubevirt/kubevirt/releases | grep tag_name | grep -v -- '-rc' | sort -r | head -1 | awk -F': ' '{print $2}' | sed 's/,//' | xargs)
 echo $VERSION
 kubectl create -f https://github.com/kubevirt/kubevirt/releases/download/${VERSION}/kubevirt-operator.yaml
+
+kubectl create configmap kubevirt-config -n kubevirt --from-literal debug.useEmulation=true
 ```
 Create Resource Deployment to `kubevirt` namespace
+https://kubevirt.io/user-guide/virtual_machines/templates/#templates
+
 ```
 kubectl create -f https://github.com/kubevirt/kubevirt/releases/download/${VERSION}/kubevirt-cr.yaml
-
-https://kubevirt.io/user-guide/virtual_machines/templates/#templates
 
 export VERSION=$(curl -s https://github.com/kubevirt/containerized-data-importer/releases/latest | grep -o "v[0-9]\.[0-9]*\.[0-9]*")
 kubectl create -f https://github.com/kubevirt/containerized-data-importer/releases/download/$VERSION/cdi-operator.yaml

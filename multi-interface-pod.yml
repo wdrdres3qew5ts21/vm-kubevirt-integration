@@ -8,7 +8,7 @@ metadata:
             "ips": ["192.168.12.10"]}]'
 spec:
   nodeSelector:
-    kubernetes.io/hostname: vmware-ocp-poxwk-1v8g-qbtnq-worker-q4c8c
+    kubernetes.io/hostname: 10.110.198.122
   containers:
   - name: samplepod
     command: ["/bin/bash", "-c", "trap : TERM INT; sleep infinity & wait"]
@@ -26,7 +26,7 @@ metadata:
             "ips": ["192.168.12.11"]}]'
 spec:
   nodeSelector:
-    kubernetes.io/hostname: vmware-ocp-poxwk-1v8g-qbtnq-worker-q4c8c
+    kubernetes.io/hostname: 10.110.198.122
   containers:
   - name: samplepod
     command: ["/bin/bash", "-c", "trap : TERM INT; sleep infinity & wait"]
