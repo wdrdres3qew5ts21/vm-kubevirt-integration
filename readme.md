@@ -105,3 +105,9 @@ https://cloud.redhat.com/blog/using-the-multus-cni-in-openshift
 
 https://github.com/openshift/multus-cni/blob/master/docs/quickstart.md
 
+
+### วิธ๊เข้าเครื่อง
+เข้าไปใน pod debug network
+```
+ssh -i  id_rsa vm1@172.30.65.35
+```
