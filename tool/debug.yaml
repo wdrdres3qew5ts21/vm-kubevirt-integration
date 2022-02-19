@@ -13,6 +13,9 @@ spec:
     metadata:
       labels:
         app: nettool
+      annotations:
+        k8s.v1.cni.cncf.io/networks: '[
+                { "name": "bridge-main"}]'
     spec:
       serviceAccountName: default
       containers:

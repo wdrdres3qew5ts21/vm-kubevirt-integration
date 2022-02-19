@@ -5,17 +5,19 @@ echo $VERSION
 kubectl create -f https://github.com/kubevirt/kubevirt/releases/download/${VERSION}/kubevirt-operator.yaml
 
 kubectl create configmap kubevirt-config -n kubevirt --from-literal debug.useEmulation=true
-```
-Create Resource Deployment to `kubevirt` namespace
-https://kubevirt.io/user-guide/virtual_machines/templates/#templates
 
-```
+# Create Resource Deployment to `kubevirt` namespace
+
 kubectl create -f https://github.com/kubevirt/kubevirt/releases/download/${VERSION}/kubevirt-cr.yaml
 
 export VERSION=$(curl -s https://github.com/kubevirt/containerized-data-importer/releases/latest | grep -o "v[0-9]\.[0-9]*\.[0-9]*")
 kubectl create -f https://github.com/kubevirt/containerized-data-importer/releases/download/$VERSION/cdi-operator.yaml
 kubectl create -f https://github.com/kubevirt/containerized-data-importer/releases/download/$VERSION/cdi-cr.yaml
+```
+# Create Demo Cirros VM
+https://kubevirt.io/user-guide/virtual_machines/templates/#templates
 
+```
 oc project kubevirt
 kubectl apply -f https://kubevirt.io/labs/manifests/vm.yaml
 ```
@@ -27,7 +29,7 @@ kubectl create -f https://github.com/kubevirt/containerized-data-importer/releas
 ```
 
 
-Install  Mock VM
+# Start  Mock VM
 ```
 oc get vms
 virtctl start testvm
@@ -50,7 +52,7 @@ kubevirt_vmi_vcpu_seconds{domain="default_vm-test-01",id="0",name="vm-test-01",n
 
 Expose port
 ```
-oc new-project 
+oc new-project vm-images
 
 oc project vm-images
 
@@ -61,11 +63,14 @@ virtctl expose vmi fedora --name=fedora-ssh-port --port=20222 --target-port=22
 virtctl image-upload --pvc-name=win10-home --image-path="$PWD/win10.iso"  --size=5.5Gi  --insecure
 
 virtctl image-upload dv fedora35-iso-dv --image-path="$PWD/fedora-35-server.iso"  --size=5.5Gi  --insecure
+```
 
-# Need using IMG or QCOW2 format for automatic boot system
+### Need using IMG or QCOW2 format for automatic boot system
+
+```
 oc project vm-images
 
-virtctl image-upload dv  ubuntu20-cloud-dv  --image-path="$PWD/ubuntu-20-server.img" --size=5Gi --insecure
+virtctl image-upload dv  ubuntu20-cloud-dv  --image-path="$PWD/ubuntu-20-server.img" --size=5.5Gi --insecure
 
 virtctl image-upload dv fedora35-cloud-dv --image-path="$PWD/fedora-35-cloud.qcow2"  --size=5.5Gi  --insecure
 
