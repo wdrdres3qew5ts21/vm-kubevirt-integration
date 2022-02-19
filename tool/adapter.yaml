@@ -12,7 +12,46 @@ spec:
       "ipam": {
         "type": "host-local", 
         "subnet": "192.168.12.0/24", 
-        "rangeStart":"192.168.12.10", 
+        "rangeStart": "192.168.12.10", 
         "rangeEnd": "192.168.12.200" 
         } 
     }
+---
+apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+  name: bridge-public
+  namespace: legacy-company
+spec:
+  config: >-
+    { 
+      "cniVersion": "0.3.1", 
+      "type": "bridge", 
+      "bridge": "public-zone", 
+      "ipam": {
+        "type": "host-local", 
+        "subnet": "192.168.13.0/24", 
+        "rangeStart": "192.168.13.10", 
+        "rangeEnd": "192.168.13.200" 
+        } 
+    }
+---
+apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+  name: bridge-secure
+  namespace: legacy-company
+spec:
+  config: >-
+    { 
+      "cniVersion": "0.3.1", 
+      "type": "bridge", 
+      "bridge": "secure-zone", 
+      "ipam": {
+        "type": "host-local", 
+        "subnet": "192.168.14.0/24", 
+        "rangeStart": "192.168.14.10", 
+        "rangeEnd": "192.168.14.200" 
+        } 
+    }
+---

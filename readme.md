@@ -109,6 +109,10 @@ oc exec -it nettool-fc8556c58-ktrs6    bash
 ssh root@<target-vm-ip>
 ```
 VM can be hardcode IP by setting Ethernet Interface at Virtual Machine CR
+
+ในปัจจุบันถ้าเราใช้ Custom IP ที่สร้างขึ้นมาเองจาก Multus  Pod ที่ใช้ Custom IP ตัวนั้นจากสามารถ Ping เจอกันแค่อยู่ใน Host เดียวกันเท่านั้นเพราะว่ามันใช้ Bridge เดียวกัน สามารถลองดูตัวอย่างได้จาก Pod Frontend ของเรา ถ้าหากเราไม่ใช้ Custom IP จะไม่มี Bridge พิเศษสร้างขึ้นมา
+โดยในปัจจุบัน Pod ที่มีการใช้ Custom IP คือ Fedora-Warehouse, Ubuntu-Database, Frontend todo หมายควาว่าถ้า Pod เหล่านี้ไปลงที่ Node ไหน Node เหล่านั้นจะต้องมี Bridge Custom ขึ้นมา
+
 ```yaml
 apiVersion: kubevirt.io/v1
 kind: VirtualMachine
@@ -140,6 +144,13 @@ oc apply -f final-solution/virtual-machine/
 ```
 yyyyyyyy
 ```
+
+# Debug Kubernetes Node (Real Host that host pod)
+
+```
+oc debug node/<vm-ip-host>
+```
+
 
 
 Argo Kubevirt

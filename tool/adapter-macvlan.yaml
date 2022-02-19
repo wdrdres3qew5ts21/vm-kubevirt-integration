@@ -1,0 +1,38 @@
+apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+  name: macvlan-public
+  namespace: legacy-company
+spec:
+  config: >-
+    { 
+      "cniVersion": "0.3.1", 
+      "type": "macvlan", 
+      "bridge": "macvlan-public-zone", 
+      "ipam": {
+        "type": "host-local", 
+        "subnet": "192.168.15.0/24", 
+        "rangeStart": "192.168.15.10", 
+        "rangeEnd": "192.168.15.200" 
+        } 
+    }
+---
+apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+  name: macvlan-secure
+  namespace: legacy-company
+spec:
+  config: >-
+    { 
+      "cniVersion": "0.3.1", 
+      "type": "macvlan", 
+      "bridge": "macvlan-secure-zone", 
+      "ipam": {
+        "type": "host-local", 
+        "subnet": "192.168.16.0/24", 
+        "rangeStart": "192.168.16.10", 
+        "rangeEnd": "192.168.16.200" 
+        } 
+    }
+---

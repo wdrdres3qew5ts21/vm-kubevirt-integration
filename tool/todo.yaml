@@ -23,7 +23,7 @@ spec:
                 "ips": ["192.168.12.13"]}]'
     spec:
       nodeSelector:
-        kubernetes.io/hostname: 10.111.147.141 
+        kubernetes.io/hostname: 10.111.147.154 
       containers:
       - image: quay.io/linxianer12/todoapp-frontend:1.0.0
         name: todoapp-frontend
