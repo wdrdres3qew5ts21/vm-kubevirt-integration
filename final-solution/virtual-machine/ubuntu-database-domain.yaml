@@ -4,14 +4,14 @@ metadata:
   generation: 1
   labels:
     kubevirt.io/os: linux
-  name: ubuntu-thrid-domain
+  name: ubuntu-database-domain
   namespace: legacy-company
 spec:
   running: true
   template:
     metadata:
       labels:
-        kubevirt.io/domain: ubuntu-thrid-domain
+        kubevirt.io/domain: ubuntu-database-domain
     spec:
       domain:
         cpu:
@@ -35,7 +35,7 @@ spec:
       volumes:
       - name: disk0
         persistentVolumeClaim:
-          claimName: ubuntu-thrid-domain-block
+          claimName: ubuntu-database-domain-block
       - cloudInitNoCloud:
           userData: |
             #cloud-config
@@ -53,7 +53,7 @@ spec:
         name: cloudinitdisk
   dataVolumeTemplates:
   - metadata:
-      name: ubuntu-thrid-domain-block
+      name: ubuntu-database-domain-block
     spec:
       pvc:
         # volumeMode: block

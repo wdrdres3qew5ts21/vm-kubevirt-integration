@@ -1,10 +1,17 @@
+### Current KubeVirt  Version (0.50.x+++)
+```json
+Client Version: version.Info{GitVersion:"v0.44.1", GitCommit:"01805c72083902832ecbd08559f4d3aa88110ea1", GitTreeState:"clean", BuildDate:"2021-08-12T12:35:53Z", GoVersion:"go1.16.6", Compiler:"gc", Platform:"darwin/amd64"}
+
+Server Version: version.Info{GitVersion:"v0.50.0", GitCommit:"7e034450c10ad2a879db960b9912be2dff7ed9ce", GitTreeState:"clean", BuildDate:"2022-02-10T13:39:37Z", GoVersion:"go1.17.5", Compiler:"gc", Platform:"linux/amd64"}
+```
 ### Setup Kube-Virt
 ```
 export VERSION=$(curl -s https://api.github.com/repos/kubevirt/kubevirt/releases | grep tag_name | grep -v -- '-rc' | sort -r | head -1 | awk -F': ' '{print $2}' | sed 's/,//' | xargs)
 echo $VERSION
 kubectl create -f https://github.com/kubevirt/kubevirt/releases/download/${VERSION}/kubevirt-operator.yaml
 
-kubectl create configmap kubevirt-config -n kubevirt --from-literal debug.useEmulation=true
+# Not working anymore need to enable from KubeVirt CR only
+# kubectl create configmap kubevirt-config -n kubevirt --from-literal debug.useEmulation=true
 
 # Create Resource Deployment to `kubevirt` namespace
 
@@ -13,7 +20,16 @@ kubectl create -f https://github.com/kubevirt/kubevirt/releases/download/${VERSI
 export VERSION=$(curl -s https://github.com/kubevirt/containerized-data-importer/releases/latest | grep -o "v[0-9]\.[0-9]*\.[0-9]*")
 kubectl create -f https://github.com/kubevirt/containerized-data-importer/releases/download/$VERSION/cdi-operator.yaml
 kubectl create -f https://github.com/kubevirt/containerized-data-importer/releases/download/$VERSION/cdi-cr.yaml
+
+# Update KubeVirt CR to use Software Emulation
+oc apply -f final-solution/kubevirt-cr/
+
 ```
+
+# Kubevirt Software Emulation
+Not working anymore need to enable from KubeVirt CR only
+https://github.com/kubevirt/kubevirt/blob/main/docs/software-emulation.md
+
 # Create Demo Cirros VM
 https://kubevirt.io/user-guide/virtual_machines/templates/#templates
 
@@ -27,7 +43,6 @@ export VERSION=$(curl -s https://github.com/kubevirt/containerized-data-importer
 kubectl create -f https://github.com/kubevirt/containerized-data-importer/releases/download/$VERSION/cdi-operator.yaml
 kubectl create -f https://github.com/kubevirt/containerized-data-importer/releases/download/$VERSION/cdi-cr.yaml
 ```
-
 
 # Start  Mock VM
 ```
@@ -76,7 +91,21 @@ virtctl image-upload dv fedora35-cloud-dv --image-path="$PWD/fedora-35-cloud.qco
 
 oc new-project legacy-company
 
+# Maybe not require anymore ?
 oc adm policy add-scc-to-user  ibm-anyuid-hostaccess-scc  -z default
+```
+
+
+# Using `./final-solution` directory for create Infrastructure
+
+```
+oc apply -f final-solution/virtual-machine/
+```
+
+# Using `./dns` directory for demonstrate problem
+
+```
+yyyyyyyy
 ```
 
 
