@@ -95,6 +95,38 @@ oc new-project legacy-company
 oc adm policy add-scc-to-user  ibm-anyuid-hostaccess-scc  -z default
 ```
 
+# Using `./tool` for Debug about Network to Virtual Machine Pod
+Network Debug Pod Required Privileged to Access Linux Capabilities Feature
+Inside nettool pod just paste SSH Private Key so you can login to VM
+```
+oc apply -f tool/
+```
+Login to VM with this Solution
+```
+oc exec -it nettool-fc8556c58-ktrs6    bash
+## inside Nettool (Network Debug Pod)
+
+ssh root@<target-vm-ip>
+```
+VM can be hardcode IP by setting Ethernet Interface at Virtual Machine CR
+```yaml
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  generation: 1
+  labels:
+    kubevirt.io/os: linux
+  name: fedora-warehouse-domain
+  namespace: legacy-company
+... Reduce Detail about this Example for more detail see ./final-solution/virtual-machine/fedora-warehouse-domain.yaml
+networkData: |
+            version: 2
+            ethernets:
+              eth0: 
+                addresses:
+                - 192.168.255.1/24
+```
+
 
 # Using `./final-solution` directory for create Infrastructure
 
