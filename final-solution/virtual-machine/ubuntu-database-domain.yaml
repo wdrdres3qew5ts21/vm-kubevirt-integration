@@ -66,4 +66,4 @@ spec:
       source:
         pvc:
           namespace: vm-images
-          name: ubuntu20-cloud-img 
+          name: ubuntu20-cloud-dv 

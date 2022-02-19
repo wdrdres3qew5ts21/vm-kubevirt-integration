@@ -99,6 +99,7 @@ oc adm policy add-scc-to-user  ibm-anyuid-hostaccess-scc  -z default
 # Using `./final-solution` directory for create Infrastructure
 
 ```
+oc project legacy-company
 oc apply -f final-solution/virtual-machine/
 ```
 
