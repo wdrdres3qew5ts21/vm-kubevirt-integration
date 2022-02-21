@@ -112,6 +112,7 @@ VM can be hardcode IP by setting Ethernet Interface at Virtual Machine CR
 
 ในปัจจุบันถ้าเราใช้ Custom IP ที่สร้างขึ้นมาเองจาก Multus  Pod ที่ใช้ Custom IP ตัวนั้นจากสามารถ Ping เจอกันแค่อยู่ใน Host เดียวกันเท่านั้นเพราะว่ามันใช้ Bridge เดียวกัน สามารถลองดูตัวอย่างได้จาก Pod Frontend ของเรา ถ้าหากเราไม่ใช้ Custom IP จะไม่มี Bridge พิเศษสร้างขึ้นมา
 โดยในปัจจุบัน Pod ที่มีการใช้ Custom IP คือ Fedora-Warehouse, Ubuntu-Database, Frontend todo หมายควาว่าถ้า Pod เหล่านี้ไปลงที่ Node ไหน Node เหล่านั้นจะต้องมี Bridge Custom ขึ้นมา
+ใช้ MACVLAN แก้ปัญหาข้าม Node ได้
 
 ```yaml
 apiVersion: kubevirt.io/v1
