@@ -17,6 +17,8 @@ spec:
         k8s.v1.cni.cncf.io/networks: '[
                 { "name": "macvlan-secure"}]'
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: 10.110.198.121
       serviceAccountName: default
       volumes:
       - name: modifysys

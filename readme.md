@@ -140,7 +140,7 @@ https://developers.redhat.com/blog/2019/11/12/using-the-red-hat-openshift-tuned-
 Mount Capability net เข้ามาให้ forward ได้ผ่าน sysctl init contaienr
 https://cloud.ibm.com/docs/openshift?topic=openshift-kernel#worker
 
-การทำให้ Network สามารถ Routing ข้าม Subnet กันได้ทำได้จากวิธีการเพิ่ม Default GW Routing ข้ามไปยังอีก Kubernetes Node หนึ่ง
+การทำให้ Network สามารถ Routing ข้าม Subnet กันได้ทำได้จากวิธีการเพิ่ม Default GW Routing ข้ามไปยังอีก Kubernetes Node หนึ่งซึ่งทำเฉพาะตัวที่เป็น Router ก็พอแล้ว
 
 sysctl -w net.ipv4.ip_forward=1
 
@@ -158,8 +158,7 @@ ls -alZ /proc/sys/net/ipv4/ip_forward
 
 ```
 <Subnet>
-ip route add 192.168.16.0/24   via  10.110.198.121   dev eth0
-192.168.16.0/24  via 10.116.106.249 dev eth0
+ip route add 192.168.16.0/24 via 192.168.15.20 dev net1
 
 ```
 ใช้ `TCP Dump` ตรงกลางที่ Router ซึ่งมี Interface สองขาคือ Subnet Public กับ Subnet Private
