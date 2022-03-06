@@ -139,9 +139,16 @@ networkData: |
 
 # Using `./final-solution` directory for create Infrastructure
 
+ถ้าใช้ VM-Images ข้าม Namespace แล้วจะเกิด Error ดั่งนี้ ต้องให้สิทธิในการ Clone DataVolume
+```
+oc apply -f final-solution/virtual-machine/
+Error from server (Invalid): error when creating "final-solution/virtual-machine/fedora-crm-domain.yaml": admission webhook "virtualmachine-validator.kubevirt.io" denied the request: Authorization failed, message is: User system:serviceaccount:legacy-company:default has insufficient permissions in clone source namespace vm-images
+```
+
 ```
 oc new-project legacy-company
 oc project legacy-company
+oc apply -f final-solution/rbac
 oc apply -f final-solution/virtual-machine/
 ```
 
