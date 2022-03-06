@@ -136,10 +136,20 @@ networkData: |
                 - 192.168.255.1/24
 ```
 
+การทำให้ Network สามารถ Routing ข้าม Subnet กันได้ทำได้จากวิธีการเพิ่ม Default GW Routing ข้ามไปยังอีก Kubernetes Node หนึ่ง
+```
+ip route add 192.168.16.0/24  via 10.110.198.105
+```
+ซึ่งจะต้องการสิทธิของ Linux Routing `RTNETLINK answers: Operation not permitted` จึงจะสามารถเพิ่ม routing ได้ จึงต้องเพิ่มสิทธิ
+`NET_ADMIN` เข้าไปด้วย
+https://blog.pentesteracademy.com/linux-security-understanding-linux-capabilities-series-part-i-4034cf8a7f09
+
+
+
 
 # Using `./final-solution` directory for create Infrastructure
 
-ถ้าใช้ VM-Images ข้าม Namespace แล้วจะเกิด Error ดั่งนี้ ต้องให้สิทธิในการ Clone DataVolume
+ถ้าใช้ VM-Images ข้าม Namespace แล้วจะเกิด Error ดั่งนี้ ต้องให้สิทธิในการ Clone DataVolume เลยต้องทำการให้สิทธิด้วยนั่นเอง
 ```
 oc apply -f final-solution/virtual-machine/
 Error from server (Invalid): error when creating "final-solution/virtual-machine/fedora-crm-domain.yaml": admission webhook "virtualmachine-validator.kubevirt.io" denied the request: Authorization failed, message is: User system:serviceaccount:legacy-company:default has insufficient permissions in clone source namespace vm-images

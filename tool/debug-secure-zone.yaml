@@ -26,6 +26,7 @@ spec:
             capabilities:
               add:
                 - "NET_RAW"
+                - "NET_ADMIN"
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       dnsPolicy: ClusterFirst

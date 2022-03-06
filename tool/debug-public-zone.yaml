@@ -18,7 +18,7 @@ spec:
                 { "name": "macvlan-public"}]'
     spec:
       nodeSelector:
-        kubernetes.io/hostname: 10.111.147.164 
+        kubernetes.io/hostname: 10.110.198.105
       serviceAccountName: default
       containers:
         - name: bridge-public
@@ -28,6 +28,7 @@ spec:
             capabilities:
               add:
                 - "NET_RAW"
+                - "NET_ADMIN"
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       dnsPolicy: ClusterFirst
@@ -67,6 +68,7 @@ spec:
             capabilities:
               add:
                 - "NET_RAW"
+                - "NET_ADMIN"
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       dnsPolicy: ClusterFirst
