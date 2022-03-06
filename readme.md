@@ -148,6 +148,14 @@ kubelet --allowed-unsafe-sysctls 'net.ipv4.ip_forward'
 
 ls -alZ /proc/sys/net/ipv4/ip_forward
 
+เวลา forward package มันจะวิ่งตรงไปเลยไม่มีการแปลง IP ที่ตรงกลางตัวอย่างเช่นจาก Public ไปหา Private Subnet ที่เครื่อง Router ก็จะเห็น IP ถูก Forward ตรงๆไปเลย
+```
+18:33:53.749498 IP 192.168.15.26 > 192.168.16.17: ICMP echo request, id 55, seq 122, length 64
+18:33:53.749523 IP 192.168.16.17 > 192.168.15.26: ICMP echo reply, id 55, seq 122, length 64
+18:33:54.749449 IP 192.168.15.26 > 192.168.16.17: ICMP echo request, id 55, seq 123, length 64
+18:33:54.749479 IP 192.168.16.17 > 192.168.15.26: ICMP echo reply, id 55, seq 123, length 64
+```
+
 ```
 <Subnet>
 ip route add 192.168.16.0/24   via  10.110.198.121   dev eth0
