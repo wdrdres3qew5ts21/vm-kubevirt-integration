@@ -135,16 +135,38 @@ networkData: |
                 addresses:
                 - 192.168.255.1/24
 ```
+https://developers.redhat.com/blog/2019/11/12/using-the-red-hat-openshift-tuned-operator-for-elasticsearch
+
+Mount Capability net เข้ามาให้ forward ได้ผ่าน sysctl init contaienr
+https://cloud.ibm.com/docs/openshift?topic=openshift-kernel#worker
 
 การทำให้ Network สามารถ Routing ข้าม Subnet กันได้ทำได้จากวิธีการเพิ่ม Default GW Routing ข้ามไปยังอีก Kubernetes Node หนึ่ง
+
+sysctl -w net.ipv4.ip_forward=1
+
+kubelet --allowed-unsafe-sysctls 'net.ipv4.ip_forward'
+
+ls -alZ /proc/sys/net/ipv4/ip_forward
+
 ```
-ip route add 192.168.16.0/24  via 10.110.198.105
+<Subnet>
+ip route add 192.168.16.0/24   via  10.110.198.121   dev eth0
+192.168.16.0/24  via 10.116.106.249 dev eth0
+
 ```
+ใช้ `TCP Dump` ตรงกลางที่ Router ซึ่งมี Interface สองขาคือ Subnet Public กับ Subnet Private
+```
+tcpdump -i <interface-name>
+```
+ตัวอย่างเช่น public interface วิ่งด้วย net1 เชื่อมไปหา router ด้วย net1 ก็ต้อง dump ด้วย net1
+ซึ่งระหว่างที่มี packet วิ่งมาที่ router ตรงกลาง traffic นั้น forward จาก Interface net1 ไปหา net2 เราจึงต้องทำการเปิด sysctl routing `net.ipv4.ip_forward` ด้วย และก็ใช้ NAT ในการแปลงระหว่าง Network ที่อยู่คนล่ะวง
+
+
 ซึ่งจะต้องการสิทธิของ Linux Routing `RTNETLINK answers: Operation not permitted` จึงจะสามารถเพิ่ม routing ได้ จึงต้องเพิ่มสิทธิ
 `NET_ADMIN` เข้าไปด้วย
 https://blog.pentesteracademy.com/linux-security-understanding-linux-capabilities-series-part-i-4034cf8a7f09
 
-
+https://www.youtube.com/watch?v=5qHjNRKQh3M&ab_channel=LinuxEssentials
 
 
 # Using `./final-solution` directory for create Infrastructure
@@ -173,7 +195,6 @@ yyyyyyyy
 ```
 oc debug node/<vm-ip-host>
 ```
-
 
 
 Argo Kubevirt

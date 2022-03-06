@@ -13,18 +13,47 @@ spec:
     metadata:
       labels:
         app: bridge-public
+        tuned.openshift.io/kubevirt-network-operator: ""
       annotations:
         k8s.v1.cni.cncf.io/networks: '[
-                { "name": "macvlan-public"}]'
+          { "name": "macvlan-public"}]'
     spec:
       nodeSelector:
         kubernetes.io/hostname: 10.110.198.105
       serviceAccountName: default
+      volumes:
+      - name: modifysys
+        hostPath:
+          path: /sys
+      initContainers:
+        - command:
+            - sh
+            - -c
+            - sysctl -w net.ipv4.ip_forward=1
+            # - sysctl -w net.ipv4.ip_local_port_range="1025 65535"; sysctl -w net.core.somaxconn=32768;
+          image: alpine:3.6
+          imagePullPolicy: IfNotPresent
+          name: sysctl
+          resources: {}
+          securityContext:
+            privileged: true
+            capabilities:
+              add:
+                - NET_ADMIN
+                - NET_RAW
+          volumeMounts:
+            - name: modifysys
+              mountPath: /sys
       containers:
         - name: bridge-public
           image: "quay.io/linxianer12/nettool:0.0.4"
           imagePullPolicy: Always
           securityContext:
+            sysctls:
+              - name: net.ipv4.ip_forward
+                value: 1
+            securityContext:
+              privileged: true
             capabilities:
               add:
                 - "NET_RAW"
@@ -55,16 +84,45 @@ spec:
     metadata:
       labels:
         app: bridge-public-second
+        tuned.openshift.io/kubevirt-network-operator: ""
       annotations:
         k8s.v1.cni.cncf.io/networks: '[
-                { "name": "macvlan-public"}]'
+          { "name": "macvlan-public"}]'
     spec:
       serviceAccountName: default
+      volumes:
+      - name: modifysys
+        hostPath:
+          path: /sys
+      initContainers:
+        - command:
+            - sh
+            - -c
+            - sysctl -w net.ipv4.ip_forward=1
+            # - sysctl -w net.ipv4.ip_local_port_range="1025 65535"; sysctl -w net.core.somaxconn=32768;
+          image: alpine:3.6
+          imagePullPolicy: IfNotPresent
+          name: sysctl
+          resources: {}
+          securityContext:
+            privileged: true
+            capabilities:
+              add:
+                - NET_ADMIN
+                - NET_RAW
+          volumeMounts:
+            - name: modifysys
+              mountPath: /sys
       containers:
         - name: bridge-public-second
           image: "quay.io/linxianer12/nettool:0.0.4"
           imagePullPolicy: Always
           securityContext:
+            sysctls:
+              - name: net.ipv4.ip_forward
+                value: 1
+            securityContext:
+              privileged: true
             capabilities:
               add:
                 - "NET_RAW"

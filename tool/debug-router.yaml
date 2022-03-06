@@ -1,22 +1,25 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: bridge-secure
+  name: bridge-router
   labels:
-    app: bridge-secure
+    app: bridge-router
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: bridge-secure
+      app: bridge-router
   template:
     metadata:
       labels:
-        app: bridge-secure
+        app: bridge-router
+        tuned.openshift.io/kubevirt-network-operator: ""
       annotations:
         k8s.v1.cni.cncf.io/networks: '[
-                { "name": "macvlan-secure"}]'
+          { "name": "macvlan-public"},{ "name": "macvlan-secure"}]'
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: 10.110.198.191 # ต้องเป้นเครื่องตรงกลาง
       serviceAccountName: default
       volumes:
       - name: modifysys
@@ -40,12 +43,15 @@ spec:
                 - NET_RAW
           volumeMounts:
             - name: modifysys
-              mountPath: /sys      
+              mountPath: /sys
       containers:
-        - name: bridge-secure
+        - name: bridge-router
           image: "quay.io/linxianer12/nettool:0.0.4"
           imagePullPolicy: Always
           securityContext:
+            sysctls:
+              - name: net.ipv4.ip_forward
+                value: 1
             securityContext:
               privileged: true
             capabilities:

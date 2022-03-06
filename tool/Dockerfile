@@ -26,7 +26,9 @@ RUN yum update-minimal --security -y && \
   openssh-clients \
   && yum clean all && rm -rf /var/cache/yum /tmp/* /var/tmp/*
 
-RUN touch /run/nginx.pid &&chgrp -R 0 /run/* && chmod 770 -R /run/* && ls -al /run/nginx.pid
+RUN  sysctl -w net.ipv4.ip_forward=1
+
+RUN touch /run/nginx.pid &&chgrp -R 0 /run/* && chmod 770 -R /run/* && ls -al /run/nginx.pid 
 
 RUN curl -s https://raw.githubusercontent.com/jedrecord/sysinfo/master/sysinfo \
   -o /usr/bin/sysinfo && chmod 755 /usr/bin/sysinfo
