@@ -6,6 +6,8 @@ Server Version: version.Info{GitVersion:"v0.50.0", GitCommit:"7e034450c10ad2a879
 ```
 ### Setup Kube-Virt
 ```
+oc new-project kubevirt
+
 export VERSION=$(curl -s https://api.github.com/repos/kubevirt/kubevirt/releases | grep tag_name | grep -v -- '-rc' | sort -r | head -1 | awk -F': ' '{print $2}' | sed 's/,//' | xargs)
 echo $VERSION
 kubectl create -f https://github.com/kubevirt/kubevirt/releases/download/${VERSION}/kubevirt-operator.yaml
@@ -18,7 +20,9 @@ kubectl create -f https://github.com/kubevirt/kubevirt/releases/download/${VERSI
 kubectl create -f https://github.com/kubevirt/kubevirt/releases/download/${VERSION}/kubevirt-cr.yaml
 
 export VERSION=$(curl -s https://github.com/kubevirt/containerized-data-importer/releases/latest | grep -o "v[0-9]\.[0-9]*\.[0-9]*")
+
 kubectl create -f https://github.com/kubevirt/containerized-data-importer/releases/download/$VERSION/cdi-operator.yaml
+
 kubectl create -f https://github.com/kubevirt/containerized-data-importer/releases/download/$VERSION/cdi-cr.yaml
 
 # Update KubeVirt CR to use Software Emulation
@@ -136,6 +140,7 @@ networkData: |
 # Using `./final-solution` directory for create Infrastructure
 
 ```
+oc new-project legacy-company
 oc project legacy-company
 oc apply -f final-solution/virtual-machine/
 ```
@@ -190,3 +195,10 @@ https://github.com/openshift/multus-cni/blob/master/docs/quickstart.md
 ```
 ssh -i  id_rsa vm1@172.30.65.35
 ```
+
+
+## Operator Requirement
+Golang 1.16.x Version (only)
+
+swtich GO version
+https://stackoverflow.com/questions/58210941/unable-to-brew-switch-go-versions
