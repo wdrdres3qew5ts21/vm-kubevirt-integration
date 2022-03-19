@@ -27,11 +27,22 @@ spec:
               readonly: true
             name: cloudinitdisk
             bootOrder: 1
+          interfaces:
+            - name: default
+              bridge: {}
+            - name: napzz-macvlan-secure-zone
+              bridge: {}
         machine:
           type: q35
         resources:
           requests:
             memory: 2048M
+      networks:
+        - name: default
+          pod: {}
+        - name: napzz-macvlan-secure-zone
+          multus:
+            networkName: napzz-macvlan-secure-zone
       volumes:
       - name: disk0
         persistentVolumeClaim:
@@ -47,9 +58,9 @@ spec:
           networkData: |
             version: 2
             ethernets:
-              eth0: 
+              eth1: 
                 addresses:
-                - 192.168.255.1/24
+                - 192.168.18.1/24
         name: cloudinitdisk
   dataVolumeTemplates:
   - metadata:

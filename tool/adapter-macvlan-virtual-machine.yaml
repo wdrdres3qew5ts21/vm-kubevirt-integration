@@ -12,8 +12,8 @@ spec:
       "ipam": {
         "type": "host-local", 
         "subnet": "192.168.17.0/24", 
-        "rangeStart": "192.168.17.10", 
-        "rangeEnd": "192.168.17.200" 
+        "rangeStart": "192.168.17.1", 
+        "rangeEnd": "192.168.17.254" 
         } 
     }
 ---
@@ -31,8 +31,8 @@ spec:
       "ipam": {
         "type": "host-local", 
         "subnet": "192.168.18.0/24", 
-        "rangeStart": "192.168.18.10", 
-        "rangeEnd": "192.168.18.200" 
+        "rangeStart": "192.168.18.1", 
+        "rangeEnd": "192.168.18.254" 
         } 
     }
 ---
