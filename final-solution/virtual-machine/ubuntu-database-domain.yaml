@@ -66,4 +66,4 @@ spec:
       source:
         pvc:
           namespace: vm-images
-          name: ubuntu20-cloud-dv 
+          name: ubuntu20-iso-dv 

@@ -15,7 +15,7 @@ kubectl create -f https://github.com/kubevirt/kubevirt/releases/download/${VERSI
 # Not working anymore need to enable from KubeVirt CR only
 # kubectl create configmap kubevirt-config -n kubevirt --from-literal debug.useEmulation=true
 
-# Create Resource Deployment to `kubevirt` namespace
+# Create Resource Deployment to kubevirt namespace
 
 kubectl create -f https://github.com/kubevirt/kubevirt/releases/download/${VERSION}/kubevirt-cr.yaml
 

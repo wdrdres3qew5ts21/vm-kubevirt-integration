@@ -66,4 +66,4 @@ spec:
       source:
         pvc:
           namespace: vm-images
-          name: fedora35-cloud-dv
+          name: fedora35-iso-dv
