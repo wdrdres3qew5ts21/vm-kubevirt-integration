@@ -1,0 +1,38 @@
+apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+  name: napzz-macvlan-public-zone
+  namespace: legacy-company
+spec:
+  config: >-
+    { 
+      "cniVersion": "0.3.1", 
+      "type": "macvlan", 
+      "bridge": "macvlan-public-zone", 
+      "ipam": {
+        "type": "host-local", 
+        "subnet": "192.168.17.0/24", 
+        "rangeStart": "192.168.17.10", 
+        "rangeEnd": "192.168.17.200" 
+        } 
+    }
+---
+apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+  name: napzz-macvlan-secure-zone
+  namespace: legacy-company
+spec:
+  config: >-
+    { 
+      "cniVersion": "0.3.1", 
+      "type": "macvlan", 
+      "bridge": "macvlan-public-zone", 
+      "ipam": {
+        "type": "host-local", 
+        "subnet": "192.168.18.0/24", 
+        "rangeStart": "192.168.18.10", 
+        "rangeEnd": "192.168.18.200" 
+        } 
+    }
+---

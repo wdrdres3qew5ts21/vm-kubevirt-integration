@@ -19,7 +19,7 @@ spec:
           { "name": "macvlan-public"}]'
     spec:
       nodeSelector:
-        kubernetes.io/hostname: 10.110.198.105
+        kubernetes.io/hostname: 10.111.147.159
       serviceAccountName: default
       volumes:
       - name: modifysys

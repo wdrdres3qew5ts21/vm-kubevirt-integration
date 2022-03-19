@@ -19,7 +19,7 @@ spec:
           { "name": "macvlan-public"},{ "name": "macvlan-secure"}]'
     spec:
       nodeSelector:
-        kubernetes.io/hostname: 10.110.198.191 # ต้องเป้นเครื่องตรงกลาง
+        kubernetes.io/hostname: 10.111.147.173 # ต้องเป้นเครื่องตรงกลาง
       serviceAccountName: default
       volumes:
       - name: modifysys

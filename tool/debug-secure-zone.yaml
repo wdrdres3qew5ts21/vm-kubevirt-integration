@@ -18,7 +18,7 @@ spec:
                 { "name": "macvlan-secure"}]'
     spec:
       nodeSelector:
-        kubernetes.io/hostname: 10.110.198.121
+        kubernetes.io/hostname: 10.111.147.210
       serviceAccountName: default
       volumes:
       - name: modifysys
