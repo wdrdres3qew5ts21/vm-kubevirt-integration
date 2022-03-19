@@ -89,6 +89,10 @@ virtctl image-upload dv fedora35-iso-dv --image-path="$PWD/fedora-35-server.iso"
 ```
 oc project vm-images
 
+virtctl image-upload dv  data-server-vm-dv  --image-path="$PWD/data-server.img" --size=25Gi --insecure
+
+virtctl image-upload dv  crm-server-vm-dv  --image-path="$PWD/crm-server.img" --size=25Gi --insecure
+
 virtctl image-upload dv  ubuntu20-cloud-dv  --image-path="$PWD/ubuntu-20-server.img" --size=5.5Gi --insecure
 
 virtctl image-upload dv fedora35-cloud-dv --image-path="$PWD/fedora-35-cloud.qcow2"  --size=5.5Gi  --insecure
@@ -247,3 +251,17 @@ Golang 1.16.x Version (only)
 
 swtich GO version
 https://stackoverflow.com/questions/58210941/unable-to-brew-switch-go-versions
+
+### Local Virtual Machine Snapshot
+
+data-server (ubuntu 20.04)
+username: supakorn
+password: lnwza007
+
+crm-server (fedora 35)
+username: supakorn
+password: lnwza007
+
+ต้อง dump vmdk format ออกมาด้วยคำสั่งนี้ 
+
+ VBoxManage clonehd  --format VMDK data-server.vmdk data-server.img

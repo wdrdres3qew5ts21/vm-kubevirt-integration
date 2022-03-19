@@ -1,0 +1,80 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  generation: 1
+  labels:
+    kubevirt.io/os: linux
+  name: database-server
+  namespace: legacy-company
+spec:
+  running: true
+  template:
+    metadata:
+      labels:
+        kubevirt.io/domain: database-server
+    spec:
+      domain:
+        cpu:
+          cores: 2
+        devices:
+          disks:
+          - disk:
+              bus: virtio
+            name: disk0
+            bootOrder: 1
+          # - cdrom:
+          #     bus: sata
+          #     readonly: true
+          #   name: cloudinitdisk
+          #   bootOrder: 1
+          interfaces:
+            - name: default
+              bridge: {}
+            # - name: napzz-macvlan-secure-zone
+            #   bridge: {}
+        machine:
+          type: q35
+        resources:
+          requests:
+            memory: 4096M
+      networks:
+        - name: default
+          pod: {}
+        # - name: napzz-macvlan-secure-zone
+        #   multus:
+        #     networkName: napzz-macvlan-secure-zone
+      volumes:
+      - name: disk0
+        persistentVolumeClaim:
+          claimName: database-server-block
+      # - cloudInitNoCloud:
+      #     userData: |
+      #       #cloud-config
+      #       hostname: vm1
+      #       ssh_pwauth: True
+      #       disable_root: false
+      #       ssh_authorized_keys:
+      #       - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC2YnDRdgURlnKgz6P9k3sMSWEFf/x8CW/iUlHk5SbUU+HqZFgNx8m0HjZq8JtiCuVzmppqu5zq1l4tX94qCmUPwxiCF8g/+FjC2s1EI0mD6f0C9CIZ+ZgZ7OPhlKEOs0l46XAfKA3jkzLSGEbxivSdo452UtWhEfzZPqS7n+NsHr4HbRgeIv2rFuvOb2koCETub7YcWyHKmm66izN9n+9d7Na7pCjyxQ6HKYdzNj0Sa/SmhMIVEUr0nXMEh0ywdhzwUoSjXHdsADY1N5P5rO+cqCsznKzpgIoflqVXvP63r830F3HevKY9p941vgegEIY77vkh0US9AevGP9lUPJXmCaRhg84kLuvbei6Vzaxl0pROSEQ9L4RaHlEBDs+KNIucCpcpfNOyZrcNCtvnd3tBSqqJK+JiNeFOmXU11udh8B1et9sWNUuRp4SmOCJ40b81vyJOaFxX8D+zT2H3C4O7p5st/XAqkWzJh9UUEh7wpQV6gSNxU+K4FcIHW6Q2CMU= supakorn.t@MacBook-Pro-khxng-Supakorn.local
+      #     networkData: |
+      #       version: 2
+      #       ethernets:
+      #         enp2s0: 
+      #           addresses:
+      #           - 192.168.18.1/24
+      #   name: cloudinitdisk
+  dataVolumeTemplates:
+  - metadata:
+      name: database-server-block
+    spec:
+      pvc:
+        # volumeMode: block
+        # storageClassName: managed-premium
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 50Gi
+      source:
+        pvc:
+          namespace: vm-images
+          name: data-server-vm-dv

@@ -4,14 +4,14 @@ metadata:
   generation: 1
   labels:
     kubevirt.io/os: linux
-  name: ubuntu-database-domain
+  name: fedora-warehouse-domain
   namespace: legacy-company
 spec:
   running: true
   template:
     metadata:
       labels:
-        kubevirt.io/domain: ubuntu-database-domain
+        kubevirt.io/domain: fedora-warehouse-domain
     spec:
       domain:
         cpu:
@@ -27,26 +27,15 @@ spec:
               readonly: true
             name: cloudinitdisk
             bootOrder: 1
-          interfaces:
-            - name: default
-              bridge: {}
-            - name: napzz-macvlan-secure-zone
-              bridge: {}
         machine:
           type: q35
         resources:
           requests:
             memory: 2048M
-      networks:
-        - name: default
-          pod: {}
-        - name: napzz-macvlan-secure-zone
-          multus:
-            networkName: napzz-macvlan-secure-zone
       volumes:
       - name: disk0
         persistentVolumeClaim:
-          claimName: ubuntu-database-domain-block
+          claimName: fedora-warehouse-domain-block
       - cloudInitNoCloud:
           userData: |
             #cloud-config
@@ -58,13 +47,13 @@ spec:
           networkData: |
             version: 2
             ethernets:
-              enp2s0: 
+              eth0: 
                 addresses:
-                - 192.168.18.1/24
+                - 192.168.255.1/24
         name: cloudinitdisk
   dataVolumeTemplates:
   - metadata:
-      name: ubuntu-database-domain-block
+      name: fedora-warehouse-domain-block
     spec:
       pvc:
         # volumeMode: block
@@ -77,4 +66,4 @@ spec:
       source:
         pvc:
           namespace: vm-images
-          name: ubuntu20-iso-dv 
+          name: fedora35-iso-dv
