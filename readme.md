@@ -273,3 +273,6 @@ VBoxManage clonehd  --format VMDK data-server.vmdk data-server.img
 ```
 
 https://blogs.oracle.com/cloud-infrastructure/post/running-kvm-and-vmware-vms-in-container-engine-for-kubernetes
+
+KubeVirt มีปัญหากับ Macvlan ต้องใช้ Bridge แทน
+https://github.com/kubevirt/kubevirt/issues/5483#issuecomment-1077625725
