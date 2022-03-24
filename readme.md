@@ -89,13 +89,13 @@ virtctl image-upload dv fedora35-iso-dv --image-path="$PWD/fedora-35-server.iso"
 ```
 oc project vm-images
 
-virtctl image-upload dv  data-server-vm-dv  --image-path="$PWD/data-server-para-network.img" --size=25Gi --insecure
+virtctl image-upload dv  data-server-vm-dv  -n vm-images --image-path="$PWD/data-server-nmcli.img" --size=25Gi --insecure
 
-virtctl image-upload dv  crm-server-vm-dv  --image-path="$PWD/crm-server-para-network.img" --size=25Gi --insecure
+virtctl image-upload dv  crm-server-vm-dv   -n vm-images --image-path="$PWD/crm-server-para-network.img" --size=25Gi --insecure
 
-virtctl image-upload dv  ubuntu20-cloud-dv  --image-path="$PWD/ubuntu-20-server.img" --size=5.5Gi --insecure
+virtctl image-upload dv  ubuntu20-cloud-dv   -n vm-images --image-path="$PWD/ubuntu-20-server.img" --size=5.5Gi --insecure
 
-virtctl image-upload dv fedora35-cloud-dv --image-path="$PWD/fedora-35-cloud.qcow2"  --size=5.5Gi  --insecure
+virtctl image-upload dv fedora35-cloud-dv  -n vm-images --image-path="$PWD/fedora-35-cloud.qcow2"  --size=5.5Gi  --insecure
 
 oc new-project legacy-company
 

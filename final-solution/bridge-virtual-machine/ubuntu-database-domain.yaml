@@ -1,0 +1,76 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  generation: 1
+  labels:
+    kubevirt.io/os: linux
+  name: database-server
+  namespace: legacy-company
+spec:
+  running: true
+  template:
+    metadata:
+      labels:
+        kubevirt.io/domain: database-server
+      annotations:
+        k8s.v1.cni.cncf.io/networks: '[{"name": "napzz-macvlan-secure-zone","interface": "enp0s3","ips": ["192.168.18.5"],"default": true}]'
+    spec:
+      domain:
+        cpu:
+          cores: 2
+        devices:
+          disks:
+          - disk:
+              bus: virtio
+            name: disk0
+            bootOrder: 2
+          - cdrom:
+              bus: sata
+              readonly: true
+            name: cloudinitdisk
+            bootOrder: 1
+          interfaces:
+            - name: default
+              bridge: {}
+            # - name: napzz-macvlan-secure-zone
+            #   bridge: {}
+        machine:
+          type: q35
+        resources:
+          requests:
+            memory: 4096M
+      networks:
+        - name: default
+          pod: {}
+        # - name: napzz-macvlan-secure-zone
+        #   multus:
+        #     networkName: napzz-macvlan-secure-zone
+      volumes:
+      - name: disk0
+        persistentVolumeClaim:
+          claimName: database-server-block
+      - name: cloudinitdisk
+        cloudInitNoCloud:
+          networkData: |
+            version: 2
+            ethernets:
+              eth0: 
+                addresses:
+                - 192.168.18.5/255.255.255.0
+                gateway4: 192.168.18.1
+  dataVolumeTemplates:
+  - metadata:
+      name: database-server-block
+    spec:
+      pvc:
+        # volumeMode: block
+        # storageClassName: managed-premium
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 50Gi
+      source:
+        pvc:
+          namespace: vm-images
+          name: data-server-vm-dv
