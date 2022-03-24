@@ -89,9 +89,9 @@ virtctl image-upload dv fedora35-iso-dv --image-path="$PWD/fedora-35-server.iso"
 ```
 oc project vm-images
 
-virtctl image-upload dv  data-server-vm-dv  --image-path="$PWD/data-server-completed-db.img" --size=25Gi --insecure
+virtctl image-upload dv  data-server-vm-dv  --image-path="$PWD/data-server-para-network.img" --size=25Gi --insecure
 
-virtctl image-upload dv  crm-server-vm-dv  --image-path="$PWD/crm-server.img" --size=25Gi --insecure
+virtctl image-upload dv  crm-server-vm-dv  --image-path="$PWD/crm-server-para-network.img" --size=25Gi --insecure
 
 virtctl image-upload dv  ubuntu20-cloud-dv  --image-path="$PWD/ubuntu-20-server.img" --size=5.5Gi --insecure
 
@@ -276,3 +276,17 @@ https://blogs.oracle.com/cloud-infrastructure/post/running-kvm-and-vmware-vms-in
 
 KubeVirt มีปัญหากับ Macvlan ต้องใช้ Bridge แทน
 https://github.com/kubevirt/kubevirt/issues/5483#issuecomment-1077625725
+
+
+Interface Network ที่ใช้งานประเภทความต่างระหว่าง Hardware Emulation กับ para Virtual ซึ่งเราต้องเปลี่ยน Interfacte ลองให้ใช้เป้น Virt-o ไปเลย และก็ configure ตัว VM ด้วย NetworkManager แทนที่จะใช้ NetworkD โดยตรงถ้าเป็น Ubuntu ให้ไปเปลี่ยนใน Netplan ใช่เป้น backend Network Manger
+
+https://www.nakivo.com/blog/virtualbox-network-setting-guide/
+
+https://askubuntu.com/questions/1290471/ubuntu-ethernet-became-unmanaged-after-update
+
+our /etc/netplan/*.yaml file should look like:
+```
+network:
+  version: 2
+  renderer: NetworkManager
+  ```
