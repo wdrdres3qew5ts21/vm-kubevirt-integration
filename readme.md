@@ -89,7 +89,7 @@ virtctl image-upload dv fedora35-iso-dv --image-path="$PWD/fedora-35-server.iso"
 ```
 oc project vm-images
 
-virtctl image-upload dv  data-server-vm-dv  --image-path="$PWD/data-server.img" --size=25Gi --insecure
+virtctl image-upload dv  data-server-vm-dv  --image-path="$PWD/data-server-completed-db.img" --size=25Gi --insecure
 
 virtctl image-upload dv  crm-server-vm-dv  --image-path="$PWD/crm-server.img" --size=25Gi --insecure
 
@@ -228,7 +228,7 @@ https://argoproj.github.io/argo-cd/operator-manual/webhook/
 
 
 Debug network
-
+x
 
 dig @dns.openshift-dns.svc.cluster.local -p 8053 infra.napzz-thesis-chula.com
 
@@ -253,15 +253,23 @@ swtich GO version
 https://stackoverflow.com/questions/58210941/unable-to-brew-switch-go-versions
 
 ### Local Virtual Machine Snapshot
-
+192.168.18.5
 data-server (ubuntu 20.04)
 username: supakorn
 password: lnwza007
 
+192.168.18.4
 crm-server (fedora 35)
 username: supakorn
 password: lnwza007
 
-ต้อง dump vmdk format ออกมาด้วยคำสั่งนี้ 
+backend-server (ubuntu 35)
+username: supakorn
+password: lnwza007
 
- VBoxManage clonehd  --format VMDK data-server.vmdk data-server.img
+ต้อง dump vmdk format ออกมาด้วยคำสั่งนี้ 
+```
+VBoxManage clonehd  --format VMDK data-server.vmdk data-server.img
+```
+
+https://blogs.oracle.com/cloud-infrastructure/post/running-kvm-and-vmware-vms-in-container-engine-for-kubernetes

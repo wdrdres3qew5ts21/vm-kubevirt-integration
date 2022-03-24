@@ -4,14 +4,16 @@ metadata:
   generation: 1
   labels:
     kubevirt.io/os: linux
-  name: fedora-crm-domain
+  name: crm-domain
   namespace: legacy-company
 spec:
   running: true
   template:
     metadata:
       labels:
-        kubevirt.io/domain: fedora-crm-domain
+        kubevirt.io/domain: crm-domain
+      annotations:
+        k8s.v1.cni.cncf.io/networks: '[{"name": "napzz-macvlan-secure-zone","interface": "enp0s3","ips": ["192.168.18.4"],"default": true}]'
     spec:
       domain:
         cpu:
@@ -22,11 +24,11 @@ spec:
               bus: virtio
             name: disk0
             bootOrder: 1
-          - cdrom:
-              bus: sata
-              readonly: true
-            name: cloudinitdisk
-            bootOrder: 2
+          # - cdrom:
+          #     bus: sata
+          #     readonly: true
+          #   name: cloudinitdisk
+          #   bootOrder: 1
         machine:
           type: q35
         resources:
@@ -35,19 +37,27 @@ spec:
       volumes:
       - name: disk0
         persistentVolumeClaim:
-          claimName: fedora-crm-domain-block
-      - cloudInitNoCloud:
-          userData: |
-            #cloud-config
-            hostname: vm1
-            ssh_pwauth: True
-            disable_root: false
-            ssh_authorized_keys:
-            - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC2YnDRdgURlnKgz6P9k3sMSWEFf/x8CW/iUlHk5SbUU+HqZFgNx8m0HjZq8JtiCuVzmppqu5zq1l4tX94qCmUPwxiCF8g/+FjC2s1EI0mD6f0C9CIZ+ZgZ7OPhlKEOs0l46XAfKA3jkzLSGEbxivSdo452UtWhEfzZPqS7n+NsHr4HbRgeIv2rFuvOb2koCETub7YcWyHKmm66izN9n+9d7Na7pCjyxQ6HKYdzNj0Sa/SmhMIVEUr0nXMEh0ywdhzwUoSjXHdsADY1N5P5rO+cqCsznKzpgIoflqVXvP63r830F3HevKY9p941vgegEIY77vkh0US9AevGP9lUPJXmCaRhg84kLuvbei6Vzaxl0pROSEQ9L4RaHlEBDs+KNIucCpcpfNOyZrcNCtvnd3tBSqqJK+JiNeFOmXU11udh8B1et9sWNUuRp4SmOCJ40b81vyJOaFxX8D+zT2H3C4O7p5st/XAqkWzJh9UUEh7wpQV6gSNxU+K4FcIHW6Q2CMU= supakorn.t@MacBook-Pro-khxng-Supakorn.local
-        name: cloudinitdisk
+          claimName: crm-server-domain-block
+      # - name: cloudinitdisk
+      #   cloudInitNoCloud:
+      #     networkData: |
+      #       version: 2
+      #       ethernets:
+      #         enp0s3: 
+      #           addresses:
+      #           - 192.168.18.4/24
+      #           gateway4: 192.168.18.1
+          # userData: |
+          #   #cloud-config
+          #   hostname: vm1
+          #   ssh_pwauth: True
+          #   disable_root: false
+          #   ssh_authorized_keys:
+          #   - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC2YnDRdgURlnKgz6P9k3sMSWEFf/x8CW/iUlHk5SbUU+HqZFgNx8m0HjZq8JtiCuVzmppqu5zq1l4tX94qCmUPwxiCF8g/+FjC2s1EI0mD6f0C9CIZ+ZgZ7OPhlKEOs0l46XAfKA3jkzLSGEbxivSdo452UtWhEfzZPqS7n+NsHr4HbRgeIv2rFuvOb2koCETub7YcWyHKmm66izN9n+9d7Na7pCjyxQ6HKYdzNj0Sa/SmhMIVEUr0nXMEh0ywdhzwUoSjXHdsADY1N5P5rO+cqCsznKzpgIoflqVXvP63r830F3HevKY9p941vgegEIY77vkh0US9AevGP9lUPJXmCaRhg84kLuvbei6Vzaxl0pROSEQ9L4RaHlEBDs+KNIucCpcpfNOyZrcNCtvnd3tBSqqJK+JiNeFOmXU11udh8B1et9sWNUuRp4SmOCJ40b81vyJOaFxX8D+zT2H3C4O7p5st/XAqkWzJh9UUEh7wpQV6gSNxU+K4FcIHW6Q2CMU= supakorn.t@MacBook-Pro-khxng-Supakorn.local
+        
   dataVolumeTemplates:
   - metadata:
-      name: fedora-crm-domain-block
+      name: crm-server-domain-block
     spec:
       pvc:
         # volumeMode: block
@@ -60,4 +70,4 @@ spec:
       source:
         pvc:
           namespace: vm-images
-          name: fedora35-iso-dv
+          name: crm-server-vm-dv

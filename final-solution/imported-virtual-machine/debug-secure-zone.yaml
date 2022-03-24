@@ -1,0 +1,66 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: kubevirt-bridge-secure
+  labels:
+    app: kubevirt-bridge-secure
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kubevirt-bridge-secure
+  template:
+    metadata:
+      labels:
+        app: kubevirt-bridge-secure
+      annotations:
+        k8s.v1.cni.cncf.io/networks: '[
+                { "name": "napzz-macvlan-secure-zone"}]'
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: 10.111.147.210
+      serviceAccountName: default
+      volumes:
+      - name: modifysys
+        hostPath:
+          path: /sys
+      initContainers:
+        - command:
+            - sh
+            - -c
+            - sysctl -w net.ipv4.ip_forward=0
+            # - sysctl -w net.ipv4.ip_local_port_range="1025 65535"; sysctl -w net.core.somaxconn=32768;
+          image: alpine:3.6
+          imagePullPolicy: IfNotPresent
+          name: sysctl
+          resources: {}
+          securityContext:
+            privileged: true
+            capabilities:
+              add:
+                - NET_ADMIN
+                - NET_RAW
+          volumeMounts:
+            - name: modifysys
+              mountPath: /sys      
+      containers:
+        - name: bridge-secure
+          image: "quay.io/linxianer12/nettool:0.0.4"
+          imagePullPolicy: Always
+          securityContext:
+            securityContext:
+              privileged: true
+            capabilities:
+              add:
+                - "NET_RAW"
+                - "NET_ADMIN"
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
