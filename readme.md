@@ -371,9 +371,13 @@ https://github.com/kubevirt/kubevirt/issues/5483
 
 
 ### Debug Bridge Network
+แสดง Link ที่เชื่อมอยู่ใน Bridge นั้นๆและ debug Network Namespace
 ```
 brctl show
+
 ip link show master brse
+
+ip netns list
 
 545: vetha3ba3899@if8: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master brse state UP mode DEFAULT group default 
     link/ether fa:39:1a:4b:ab:30 brd ff:ff:ff:ff:ff:ff link-netnsid 43
