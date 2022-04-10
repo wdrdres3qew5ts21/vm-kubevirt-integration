@@ -359,3 +359,13 @@ ip link show master brse
 839: veth7d1146c3@if6: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master brse state UP mode DEFAULT group default 
     link/ether 8a:71:24:5b:c4:0e brd ff:ff:ff:ff:ff:ff link-netnsid 45
 ```
+
+### Static IP For KubeVirt
+ถ้าเกิดเราใช้ IPAM แบบปกติมันจะ Fix IP ของ Multus ไมไ่ด้เราต้องใช้ Static NetworkAttachment มาเสียบลงไปแล้วใช้ Bridge เดียวกันกับก่อนหน้าที่เราใช้ ให้ดูที่สองไฟล์นี้เป็นตัวอย่างจะใช้ CNI ประเภท Bridge แทน macvlan เพื่อแก้ปัญหา Network จาก Kubevirt https://github.com/kubevirt/kubevirt/issues/5483
+และใช้ Bridge ชื่อเดียวกันทำให้ plugin สำเร็จและ Routing ได้
+
+```
+oc apply -f final-solution/bridge-virtual-machine/ubuntu-second-domain.yaml
+
+oc apply -f final-solution/bridge-virtual-machine/bridge-static.yaml 
+```
