@@ -83,7 +83,7 @@ virtctl image-upload --pvc-name=win10-home --image-path="$PWD/win10.iso"  --size
 
 virtctl image-upload dv fedora35-iso-dv --image-path="$PWD/fedora-35-server.iso"  --size=5.5Gi  --insecure
 ```
-
+### Image ใช้จริงอยู่ตรงนี้
 ### Need using IMG or QCOW2 format for automatic boot system
 
 ```
@@ -92,6 +92,8 @@ oc project vm-images
 virtctl image-upload dv  data-server-vm-dv  -n vm-images --image-path="$PWD/data-server-nmcli.img" --size=25Gi --insecure
 
 virtctl image-upload dv  crm-server-vm-dv   -n vm-images --image-path="$PWD/crm-server-para-network.img" --size=25Gi --insecure
+
+virtctl image-upload dv  backend-server-vm-dv   -n vm-images --image-path="$PWD/backend-server.img" --size=25Gi --insecure
 
 virtctl image-upload dv  ubuntu20-cloud-dv   -n vm-images --image-path="$PWD/ubuntu-20-server.img" --size=5.5Gi --insecure
 
@@ -307,15 +309,19 @@ sudo apt install mysql-server
 
 sudo systemctl start mysql.service
 ### Local Virtual Machine Snapshot
+
+192.168.18.4
+backend-server (ubuntu 20.04)
+username: supakorn
+password: lnwza007
+
+
 192.168.18.5
 data-server (ubuntu 20.04)
 username: supakorn
 password: lnwza007
 
-192.168.18.6
-backend-server (ubuntu 20.04)
-username: supakorn
-password: lnwza007
+
 
 192.168.18.7
 crm-server (ubuntu 20.04)

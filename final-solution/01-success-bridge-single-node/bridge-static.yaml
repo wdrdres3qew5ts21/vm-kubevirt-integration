@@ -22,6 +22,27 @@ spec:
 kind: NetworkAttachmentDefinition
 apiVersion: k8s.cni.cncf.io/v1
 metadata:
+  name: backend-server
+  namespace: legacy-company
+spec:
+  config: >-
+    {
+      "cniVersion": "0.3.1",
+      "type": "bridge",
+      "bridge": "brse",
+      "ipam": {
+        "type": "static",
+        "addresses": [
+              {
+                "address": "192.168.18.4/24"
+              }
+            ]
+        }
+    }
+---
+kind: NetworkAttachmentDefinition
+apiVersion: k8s.cni.cncf.io/v1
+metadata:
   name: database-server
   namespace: legacy-company
 spec:

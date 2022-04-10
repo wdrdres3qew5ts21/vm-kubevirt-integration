@@ -11,10 +11,6 @@ username: supakorn
 password: lnwza007
 
 192.168.18.4
-crm-server (fedora 35)
-username: supakorn
-password: lnwza007
-
 backend-server (ubuntu 35)
 username: supakorn
 password: lnwza007

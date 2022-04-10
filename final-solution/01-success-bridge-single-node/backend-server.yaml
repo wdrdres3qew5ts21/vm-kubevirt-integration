@@ -1,0 +1,74 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  generation: 1
+  labels:
+    kubevirt.io/os: linux
+  name: backend-server
+  namespace: legacy-company
+spec:
+  running: true
+  template:
+    metadata:
+      labels:
+        kubevirt.io/domain: backend-server
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: 10.110.56.160
+      domain:
+        cpu:
+          cores: 2
+        devices:
+          disks:
+          - disk:
+              bus: virtio
+            name: disk0
+            bootOrder: 2
+          - cdrom:
+              bus: sata
+              readonly: true
+            name: cloudinitdisk
+            bootOrder: 1
+          interfaces:
+            - name: default
+              bridge: {}
+            - name: backend-server
+              bridge: {}
+        machine:
+          type: q35
+        resources:
+          requests:
+            memory: 4096M
+      networks:
+        - name: default
+          pod: {}
+        - name: backend-server
+          multus:
+            networkName: backend-server
+      volumes:
+      - name: disk0
+        persistentVolumeClaim:
+          claimName: backend-server-block
+      - name: cloudinitdisk
+        cloudInitNoCloud:
+          networkData: |
+            version: 2
+            ethernets:
+              eth0: 
+                dhcp4: true
+  dataVolumeTemplates:
+  - metadata:
+      name: backend-server-block
+    spec:
+      pvc:
+        # volumeMode: block
+        # storageClassName: managed-premium
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 50Gi
+      source:
+        pvc:
+          namespace: vm-images
+          name: backend-server-vm-dv
