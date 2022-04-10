@@ -15,6 +15,8 @@ spec:
       annotations:
         k8s.v1.cni.cncf.io/networks: '[{"name": "napzz-macvlan-secure-zone","interface": "enp0s3","ips": ["192.168.18.5"],"default": true}]'
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: 10.110.56.160
       domain:
         cpu:
           cores: 2
@@ -32,8 +34,8 @@ spec:
           interfaces:
             - name: default
               bridge: {}
-            # - name: napzz-bridge-secure-zone
-            #   bridge: {}
+            - name: database-server
+              bridge: {}
         machine:
           type: q35
         resources:
@@ -42,9 +44,9 @@ spec:
       networks:
         - name: default
           pod: {}
-        # - name: napzz-bridge-secure-zone
-        #   multus:
-        #     networkName: napzz-bridge-secure-zone
+        - name: database-server
+          multus:
+            networkName: database-server
       volumes:
       - name: disk0
         persistentVolumeClaim:
@@ -55,9 +57,11 @@ spec:
             version: 2
             ethernets:
               eth0: 
-                addresses:
-                - 192.168.18.5/255.255.255.0
-                gateway4: 192.168.18.1
+                dhcp4: true
+              # eth0: 
+              #   addresses:
+              #   - 192.168.18.5/255.255.255.0
+              #   gateway4: 192.168.18.1
   dataVolumeTemplates:
   - metadata:
       name: database-server-block
