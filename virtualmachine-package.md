@@ -45,3 +45,6 @@ mysql -h 192.168.18.5 -P 3306 -u supakorn -p
 ```
 nmcli show connection
 ```
+
+ตอนนี้ตัว Bridge Router Pingไปหา Ip VM KubeVirt แต่ว่ามันไปไม่ได้เพราะมันใช้ MacVlan
+https://github.com/kubevirt/kubevirt/issues/5483
