@@ -289,9 +289,15 @@ our /etc/netplan/*.yaml file should look like:
 network:
   version: 2
   renderer: NetworkManager
-  ```
+```
+ตามด้วยคำสั่ง
+```
+sudo netplan generate
 
+sudo netplan apply
 
+reboot
+```
 ### Virtual Machine Detail 
 
 ติดตั้ง mysql ลงใน ubuntu data-server
@@ -306,17 +312,25 @@ data-server (ubuntu 20.04)
 username: supakorn
 password: lnwza007
 
-192.168.18.4
-crm-server (fedora 35)
+192.168.18.6
+backend-server (ubuntu 20.04)
 username: supakorn
 password: lnwza007
 
-backend-server (ubuntu 35)
+192.168.18.7
+crm-server (ubuntu 20.04)
 username: supakorn
 password: lnwza007
+
+
 
 ### SQL Script on Data-Server
 https://www.digitalocean.com/community/tutorials/how-to-create-a-new-user-and-grant-permissions-in-mysql
+วิธี login เข้าระบบ mysql ผ่าน socket authneticatio root user
+
+```
+sudo mysql
+```
 แก้ไฟล์ Config ใน /etc/mysql/mysql.conf.d
 ```
 select user,host from mysql.user;
@@ -340,6 +354,8 @@ mysql -h 192.168.18.5 -P 3306 -u supakorn -p
 
 ```
 nmcli show connection
+
+nmcli con mod enps03 ipv4.addresses 192.168.18.5/24
 ```
 
 ตอนนี้ตัว Bridge Router Pingไปหา Ip VM KubeVirt แต่ว่ามันไปไม่ได้เพราะมันใช้ MacVlan
@@ -368,4 +384,12 @@ ip link show master brse
 oc apply -f final-solution/bridge-virtual-machine/ubuntu-second-domain.yaml
 
 oc apply -f final-solution/bridge-virtual-machine/bridge-static.yaml 
+```
+
+เครื่องจริงที่ใช้คือเครื่องที่โดน Import VM โดยตรงก็ทำงาไนด้เช่นเดียวกันโดยการใช้เทคนิค FIX IP
+
+```
+oc apply -f final-solution/bridge-virtual-machine/database-server.yaml
+
+oc apply -f final-solution/bridge-virtual-machine/bridge-server.yaml 
 ```
