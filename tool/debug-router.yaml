@@ -16,7 +16,7 @@ spec:
         tuned.openshift.io/kubevirt-network-operator: ""
       annotations:
         k8s.v1.cni.cncf.io/networks: '[
-          { "name": "macvlan-public"},{ "name": "macvlan-secure"},{"name":"napzz-bridge-secure-zone"}]'
+          { "name": "macvlan-public"},{ "name": "macvlan-secure"},{"name":"napzz-bridge-secure-zone","ips": ["192.168.18.100"]}]'
     spec:
       nodeSelector:
         kubernetes.io/hostname: 10.110.56.160  # ต้องเป้นเครื่องตรงกลาง
