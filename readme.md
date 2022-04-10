@@ -1,4 +1,13 @@
 ### Current KubeVirt  Version (0.50.x+++)
+
+| ปัญหาที่พบ | คำอธิบาย | วิธีแก้ป้ญหา |
+| --- | ----------- |-----------|
+| KubeVirt ไม่รองรับ Macvlan ทำให้ไม่สามารถวาง VM แล้วเชื่อมต่อข้าม Node ได้ | เพราะ CNI ต้องการให้ IP กับ MacAddress นั้นตรงกันแต่ MacVlan ทำให้ มี MacAddress ของ VM ถูกย้ายไปที่ระดับ Pod แทนทำให้ Traffic เจ้าไปไม่ถึง|https://github.com/kubevirt/user-guide/pull/528 ทาง KubeVirt แนะนำว่าใช้ NMState แล้วเปลี่ยนไปใช้ Bridge CNI จากนั้นให้ NMState เชื่อมทุกๆ Bridge ของทุกๆ Kube Node เข้าด้วยกัน ก็น่าจะทำให้ Network สามารถข้าม Node ได้ แต่ NMState อาจจะเพิ่ม Scope ใหญ่เกินไปเดี่ยวขอพักไว้ก่อนครับเดี่ยวทำ Node เดียวให้ได้ก่อนค่อยขยับไปหลาย Node https://github.com/kubevirt/kubevirt/issues/5483 https://github.com/nmstate/kubernetes-nmstate  |
+|ถ้าใช้ Multus กับ VM KubeVirt เหมือนจะไม่สามารถ FIX IP ได้เหมือนตอนทำกับ Pod สำหรับ VM ที่ถูก Migrate ขึ้นมา [แก้ได้แล้ว]| https://github.com/kubevirt/kubevirt/issues/4564 ถ้าเป็น Pod ปกติหรือ Interface แรกสามารถใช้ Cloud Init Fix IP ได้แต่ปัญหาคือมันจะไมไ่ด้ Interface Multus เข้าไปและทำให้เชื่อมต่อกับ Pod อื่นหรือออกไปยัง Internet ข้างนอกไมไ่ด้ | ทดลองใช้ FIX NetworkAttchMent ไปก่อน แล้วเชื่อม Bridge เองทีหลัง เพราะว่า IP อยู่ใน วงเดียวกันทำ manual routing เองอาจจะทำได้ |
+
+
+
+
 ```json
 Client Version: version.Info{GitVersion:"v0.44.1", GitCommit:"01805c72083902832ecbd08559f4d3aa88110ea1", GitTreeState:"clean", BuildDate:"2021-08-12T12:35:53Z", GoVersion:"go1.16.6", Compiler:"gc", Platform:"darwin/amd64"}
 
