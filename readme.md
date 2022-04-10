@@ -91,7 +91,7 @@ oc project vm-images
 
 virtctl image-upload dv  data-server-vm-dv  -n vm-images --image-path="$PWD/data-server-nmcli.img" --size=25Gi --insecure
 
-virtctl image-upload dv  crm-server-vm-dv   -n vm-images --image-path="$PWD/crm-server-para-network.img" --size=25Gi --insecure
+virtctl image-upload dv  frontend-server-vm-dv   -n vm-images --image-path="$PWD/frontend-server.img" --size=25Gi --insecure
 
 virtctl image-upload dv  backend-server-vm-dv   -n vm-images --image-path="$PWD/backend-server.img" --size=25Gi --insecure
 
@@ -265,7 +265,8 @@ crm-server (fedora 35)
 username: supakorn
 password: lnwza007
 
-backend-server (ubuntu 20.04)
+192.168.18.6
+frontend-server (ubuntu 20.04)
 username: supakorn
 password: lnwza007
 
@@ -399,3 +400,8 @@ oc apply -f final-solution/bridge-virtual-machine/database-server.yaml
 
 oc apply -f final-solution/bridge-virtual-machine/bridge-server.yaml 
 ```
+
+
+### การใช้ NMState เชื่อม Bridge ข้าม Node
+
+https://kubevirt.io/2020/Multiple-Network-Attachments-with-bridge-CNI.html
