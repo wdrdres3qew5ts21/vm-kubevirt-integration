@@ -450,7 +450,7 @@ https://kubevirt.io/2020/Multiple-Network-Attachments-with-bridge-CNI.html
 BackendServer
 ssh supakorn@localhost -p 2200
 
-Java Virtual Machine มีปัญหา
+Java Virtual Machine มีปัญหาเมื่อนำ VM จาก Mac ไปใช้
 ```
 2022-04-11 16:01:07.278  INFO [hello-world,,,] 1 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$91bfcc6f] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
 [CodeBlob (0x00007f0bf42ccb50)]
