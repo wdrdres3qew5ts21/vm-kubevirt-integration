@@ -17,7 +17,7 @@ spec:
         kubernetes.io/hostname: 10.110.56.160
       domain:
         cpu:
-          cores: 2
+          cores: 3
         devices:
           disks:
           - disk:

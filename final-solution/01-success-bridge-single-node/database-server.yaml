@@ -71,4 +71,4 @@ spec:
       source:
         pvc:
           namespace: vm-images
-          name: data-server-vm-dv
+          name: database-server-vm-dv

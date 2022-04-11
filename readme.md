@@ -123,11 +123,11 @@ virtctl image-upload dv fedora35-iso-dv --image-path="$PWD/fedora-35-server.iso"
 ```
 oc project vm-images
 
-virtctl image-upload dv  data-server-vm-dv  -n vm-images --image-path="$PWD/data-server-nmcli.img" --size=25Gi --insecure
+virtctl image-upload dv  database-server-vm-dv  -n vm-images --image-path="$PWD/data-server-sql.img" --size=25Gi --insecure
 
 virtctl image-upload dv  frontend-server-vm-dv   -n vm-images --image-path="$PWD/frontend-server.img" --size=25Gi --insecure
 
-virtctl image-upload dv  backend-server-vm-dv   -n vm-images --image-path="$PWD/backend-server.img" --size=25Gi --insecure
+virtctl image-upload dv  backend-server-vm-dv   -n vm-images --image-path="$PWD/backend-server-maven.img" --size=25Gi --insecure
 
 virtctl image-upload dv  ubuntu20-cloud-dv   -n vm-images --image-path="$PWD/ubuntu-20-server.img" --size=5.5Gi --insecure
 
@@ -181,6 +181,8 @@ Mount Capability net เข้ามาให้ forward ได้ผ่าน s
 https://cloud.ibm.com/docs/openshift?topic=openshift-kernel#worker
 
 การทำให้ Network สามารถ Routing ข้าม Subnet กันได้ทำได้จากวิธีการเพิ่ม Default GW Routing ข้ามไปยังอีก Kubernetes Node หนึ่งซึ่งทำเฉพาะตัวที่เป็น Router ก็พอแล้ว
+
+sudo apt-get install openjdk-11-jdk
 
 sysctl -w net.ipv4.ip_forward=1
 
@@ -443,3 +445,35 @@ oc apply -f final-solution/bridge-virtual-machine/bridge-server.yaml
 ### การใช้ NMState เชื่อม Bridge ข้าม Node
 
 https://kubevirt.io/2020/Multiple-Network-Attachments-with-bridge-CNI.html
+
+
+BackendServer
+ssh supakorn@localhost -p 2200
+
+Java Virtual Machine มีปัญหา
+```
+2022-04-11 16:01:07.278  INFO [hello-world,,,] 1 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$91bfcc6f] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[CodeBlob (0x00007f0bf42ccb50)]
+Framesize: 84
+Runtime Stub (0x00007f0bf42ccb50): ic_miss_stub
+Could not load hsdis-amd64.so; library not loadable; PrintAssembly is disabled
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  Internal Error (sharedRuntime.cpp:842), pid=1, tid=0x00007f0c04fd9ae8
+#  fatal error: exception happened outside interpreter, nmethods and vtable stubs at pc 0x00007f0bf42ccc06 
+#
+# JRE version: OpenJDK Runtime Environment (8.0_171-b11) (build 1.8.0_171-b11)
+# Java VM: OpenJDK 64-Bit Server VM (25.171-b11 mixed mode linux-amd64 compressed oops)
+# Derivative: IcedTea 3.8.0
+# Distribution: Custom build (Wed Jun 13 18:28:11 UTC 2018)
+# Core dump written. Default location: //core or core.1
+#
+# An error report file with more information is saved as:
+# //hs_err_pid1.log
+#
+# If you would like to submit a bug report, please include
+# instructions on how to reproduce the bug and visit: 
+#   http://icedtea.classpath.org/bugzilla
+#
+```
