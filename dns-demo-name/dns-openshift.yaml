@@ -11,4 +11,4 @@ spec:
           - '172.21.103.99:8053'
       name: private-zone
       zones:
-        - napzz-company.local
+        - napzz-thesis-chula.com

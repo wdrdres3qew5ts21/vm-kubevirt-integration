@@ -127,7 +127,7 @@ virtctl image-upload dv  database-server-vm-dv  -n vm-images --image-path="$PWD/
 
 virtctl image-upload dv  frontend-server-vm-dv   -n vm-images --image-path="$PWD/frontend-server.img" --size=25Gi --insecure
 
-virtctl image-upload dv  backend-server-vm-dv   -n vm-images --image-path="$PWD/backend-server-maven.img" --size=25Gi --insecure
+virtctl image-upload dv  backend-server-vm-dv   -n vm-images --image-path="$PWD/backend-server-docker.img" --size=25Gi --insecure
 
 virtctl image-upload dv  ubuntu20-cloud-dv   -n vm-images --image-path="$PWD/ubuntu-20-server.img" --size=5.5Gi --insecure
 
@@ -234,9 +234,9 @@ oc apply -f final-solution/virtual-machine/
 ```
 
 # Using `./dns` directory for demonstrate problem
-
+จะสร้างตัวอย่างของ DNS Middleware Layer ที่ทำให้ Pod ใน Kubernetes สามารถ Resolve Private Domain ใหม่ได้ทันทีโดยไม่ต้องแก้ Config อะไรในตัว Pod เลยเพราะว่าตัว Pod นั้นมา Query CoreDNS ของ Cluster หลักแล้ว Traffic ก็ถูกไปถาม DNS Server ตัวใหม่ที่เราสร้างจากตรงนี้ได้ด้วยเช่นกันนั่นเอง
 ```
-yyyyyyyy
+oc apply -f dns
 ```
 
 # Debug Kubernetes Node (Real Host that host pod)
@@ -297,7 +297,7 @@ username: supakorn
 password: lnwza007
 
 192.168.18.4
-crm-server (fedora 35)
+backend-server (ubuntu 20.04)
 username: supakorn
 password: lnwza007
 
@@ -450,6 +450,12 @@ https://kubevirt.io/2020/Multiple-Network-Attachments-with-bridge-CNI.html
 BackendServer
 ssh supakorn@localhost -p 2200
 
+
+
+docker run -p 8080:8080 quay.io/linxianer12/todoapp-frontend:1.0.0
+
+docker run -p 8080:9090  quay.io/linxianer12/subject-reservation-service:b0dff8a-dirty
+
 Java Virtual Machine มีปัญหาเมื่อนำ VM จาก Mac ไปใช้
 ```
 2022-04-11 16:01:07.278  INFO [hello-world,,,] 1 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$91bfcc6f] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
@@ -477,3 +483,11 @@ Could not load hsdis-amd64.so; library not loadable; PrintAssembly is disabled
 #   http://icedtea.classpath.org/bugzilla
 #
 ```
+บั้ค JVM Instruction
+https://github.com/elastic/elasticsearch/issues/49178
+
+https://bugzilla.redhat.com/show_bug.cgi?id=1328503
+
+https://bugzilla.redhat.com/show_bug.cgi?id=1897563
+
+https://askubuntu.com/questions/710392/java-8-oracle-1-8-0-66-problem-with-printassembly-could-not-load-hsdis-amd64

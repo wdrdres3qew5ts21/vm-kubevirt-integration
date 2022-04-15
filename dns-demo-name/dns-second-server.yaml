@@ -1,0 +1,54 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: dns
+  namespace: openshift-dns
+  labels:
+    app: dns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dns
+      deployment: dns
+  template:
+    metadata:
+      labels:
+        app: dns
+        deployment: dns
+    spec:
+      volumes:
+        - name: dns-config
+          configMap:
+            name: dns-config
+            defaultMode: 420
+      containers:
+        - resources: {}
+          terminationMessagePath: /dev/termination-log
+          name: coredns-openshift
+          command:
+            - /usr/bin/coredns
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: dns-config
+              mountPath: /etc/coredns
+          terminationMessagePolicy: File
+          image: 'quay.io/openshift/origin-coredns:4.5'
+          args:
+            - '-dns.port'
+            - '8053'
+            - '-conf'
+            - /etc/coredns/Corefile
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
+
