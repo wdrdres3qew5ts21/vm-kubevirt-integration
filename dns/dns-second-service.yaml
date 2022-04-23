@@ -17,7 +17,6 @@ spec:
       targetPort: 8053
   selector:
     app: dns
-    deployment: dns
   clusterIP: 172.21.103.99
   clusterIPs:
     - 172.21.103.99

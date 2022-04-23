@@ -443,9 +443,36 @@ oc apply -f final-solution/bridge-virtual-machine/bridge-server.yaml
 
 
 ### การใช้ NMState เชื่อม Bridge ข้าม Node
-
 https://kubevirt.io/2020/Multiple-Network-Attachments-with-bridge-CNI.html
 
+ลง Network Add-on Manager CRD
+```
+kubectl apply -f https://github.com/kubevirt/cluster-network-addons-operator/releases/download/v0.74.0/namespace.yaml
+kubectl apply -f https://github.com/kubevirt/cluster-network-addons-operator/releases/download/v0.74.0/network-addons-config.crd.yaml
+kubectl apply -f https://github.com/kubevirt/cluster-network-addons-operator/releases/download/v0.74.0/operator.yaml
+```
+
+จะไปสร้าง DaemonSet namespace `cluster-network-addons` สร้าง Resource Network AddOns 
+```
+oc apply -f final-solution/02-nmstate/manifest
+oc apply -f final-solution/02-nmstate/mmstate.yaml
+
+```
+
+ลง Kubernetes NMState CRD ซึ่งจะใชเในการจัดการ Network Manager บนเครื่อง Host ให้ Clone git ลงมาก่อนแล้วติดตั้งลงไป
+https://github.com/nmstate/kubernetes-nmstate
+
+```
+oc apply -f final-solution/02-nmstate/bundle/
+```
+
+
+
+
+
+
+
+### บั้คเกี่ยวกับ JVM รายละเอียดปลีกย่อย
 
 BackendServer
 ssh supakorn@localhost -p 2200

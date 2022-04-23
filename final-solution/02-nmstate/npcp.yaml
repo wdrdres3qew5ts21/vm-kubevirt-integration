@@ -1,0 +1,29 @@
+apiVersion: nmstate.io/v1
+kind: NodeNetworkConfigurationPolicy
+metadata:
+  name: brse-eth1
+spec:
+
+  desiredState:
+    interfaces:
+    - name: brse
+      description: Linux bridge with eth1 as a port
+      type: linux-bridge
+      state: up
+      bridge:
+        options:
+          stp:
+            enabled: false
+        port:
+        - name: eth1
+---
+apiVersion: nmstate.io/v1
+kind: NodeNetworkConfigurationPolicy
+metadata:
+  name: eth666
+spec:
+  desiredState:
+    interfaces:
+    - name: eth666
+      type: ethernet
+      state: up
