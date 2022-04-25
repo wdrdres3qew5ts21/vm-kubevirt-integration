@@ -69,19 +69,19 @@ spec:
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: bridge-secure
+  name: bridge-frontend
   namespace: legacy-company
   labels:
-    app: bridge-secure
+    app: bridge-frontend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: bridge-secure
+      app: bridge-frontend
   template:
     metadata:
       labels:
-        app: bridge-secure
+        app: bridge-frontend
       annotations:
         k8s.v1.cni.cncf.io/networks: '[
                 { "name": "frontend-server"}]'
