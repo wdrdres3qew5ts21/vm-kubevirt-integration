@@ -6,7 +6,7 @@ metadata:
   name: vm-cirros
   namespace: legacy-company
 spec:
-  running: false
+  running: true
   template:
     metadata:
       labels:
