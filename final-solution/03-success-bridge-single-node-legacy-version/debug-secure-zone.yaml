@@ -18,8 +18,8 @@ spec:
         k8s.v1.cni.cncf.io/networks: '[
                 { "name": "static"}]'
     spec:
-      # nodeSelector:
-      #   kubernetes.io/hostname: 10.111.147.210
+      nodeSelector:
+        kubernetes.io/hostname: worker-1.ocp.example.com
       serviceAccountName: default
       volumes:
       - name: modifysys
@@ -86,8 +86,8 @@ spec:
         k8s.v1.cni.cncf.io/networks: '[
                 { "name": "frontend-server"}]'
     spec:
-      # nodeSelector:
-      #   kubernetes.io/hostname: 10.111.147.210
+      nodeSelector:
+        kubernetes.io/hostname: worker-2.ocp.example.com
       serviceAccountName: default
       volumes:
       - name: modifysys
