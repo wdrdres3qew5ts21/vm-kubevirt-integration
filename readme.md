@@ -554,3 +554,54 @@ docker build -t quay.io/linxianer12/proxy-openshift-kubevirt-lab:0.0.1
 
 บั้ค NMState ทำ Network หลุด
 https://bugzilla.redhat.com/show_bug.cgi?id=2037411
+
+
+ทดสอบบน Openshift 4.7 ด้วย RHEL 8.3 สามารถโหลดได้
+ลง 
+```
+pip3 gdown
+
+gdown https://drive.google.com/uc?id=1L7yh-lSS-fMLoF_VaVcMh7oW1ZF0MFnV
+
+gdown https://drive.google.com/uc?id=11hL6vi57S7poek7PTtR53ZTMBEANQPmz
+```
+
+
+```
+NAME                       STATUS   ROLES    AGE    VERSION
+master-0.ocp.example.com   Ready    master   416d   v1.20.0+5fbfd19
+master-1.ocp.example.com   Ready    master   416d   v1.20.0+5fbfd19
+master-2.ocp.example.com   Ready    master   416d   v1.20.0+5fbfd19
+worker-0.ocp.example.com   Ready    worker   416d   v1.20.0+5fbfd19
+worker-1.ocp.example.com   Ready    worker   416d   v1.20.0+5fbfd19
+worker-2.ocp.example.com   Ready    worker   416d   v1.20.0+5fbfd19
+[lab-user@provision Downloads]$ oc get nncp
+NAME        STATUS
+brse-ens5   SuccessfullyConfigured
+[lab-user@provision Downloads]$ oc get nnce
+NAME                                 STATUS
+master-0.ocp.example.com.brse-ens5   NodeSelectorNotMatching
+master-1.ocp.example.com.brse-ens5   NodeSelectorNotMatching
+master-2.ocp.example.com.brse-ens5   NodeSelectorNotMatching
+worker-0.ocp.example.com.brse-ens5   SuccessfullyConfigured
+worker-1.ocp.example.com.brse-ens5   SuccessfullyConfigured
+worker-2.ocp.example.com.brse-ens5   SuccessfullyConfigured
+[lab-user@provision Downloads]$ uname -a
+Linux provision 4.18.0-240.15.1.el8_3.x86_64 #1 SMP Wed Feb 3 03:12:15 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+[lab-user@provision Downloads]$ cat /etc/os-release 
+NAME="Red Hat Enterprise Linux"
+VERSION="8.3 (Ootpa)"
+ID="rhel"
+ID_LIKE="fedora"
+VERSION_ID="8.3"
+PLATFORM_ID="platform:el8"
+PRETTY_NAME="Red Hat Enterprise Linux 8.3 (Ootpa)"
+ANSI_COLOR="0;31"
+CPE_NAME="cpe:/o:redhat:enterprise_linux:8.3:GA"
+HOME_URL="https://www.redhat.com/"
+BUG_REPORT_URL="https://bugzilla.redhat.com/"
+
+REDHAT_BUGZILLA_PRODUCT="Red Hat Enterprise Linux 8"
+REDHAT_BUGZILLA_PRODUCT_VERSION=8.3
+REDHAT_SUPPORT_PRODUCT="Red Hat Enterp
+```
