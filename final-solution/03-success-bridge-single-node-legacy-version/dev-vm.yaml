@@ -38,7 +38,7 @@ spec:
             networkName: backend-server
       volumes:
       - containerDisk:
-          image: registry:5000/kubevirt/cirros-container-disk-demo:devel
+          image: quay.io/kubevirt/cirros-container-disk-demo
         name: containerdisk
       - cloudInitNoCloud:
           userData: |
