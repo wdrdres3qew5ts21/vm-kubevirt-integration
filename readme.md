@@ -310,6 +310,7 @@ password: lnwza007
 ต้อง dump vmdk format ออกมาด้วยคำสั่งนี้ 
 ```
 VBoxManage clonehd  --format VMDK data-server.vmdk data-server.img
+VBoxManage clonehd  --format VMDK data-server.vmdk data-server.vmdk
 ```
 
 https://blogs.oracle.com/cloud-infrastructure/post/running-kvm-and-vmware-vms-in-container-engine-for-kubernetes
@@ -564,6 +565,8 @@ pip3 gdown
 gdown https://drive.google.com/uc?id=1L7yh-lSS-fMLoF_VaVcMh7oW1ZF0MFnV
 
 gdown https://drive.google.com/uc?id=11hL6vi57S7poek7PTtR53ZTMBEANQPmz
+
+gdown https://drive.google.com/uc?id=1kQjbCmCdlxi4gI5RIT3ugHkq0uOSq-N-
 ```
 
 
