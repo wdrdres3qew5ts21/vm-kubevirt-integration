@@ -1,4 +1,4 @@
-apiVersion: kubevirt.io/v1v1alpha3
+apiVersion: kubevirt.io/v1alpha3
 kind: VirtualMachine
 metadata:
   labels:
