@@ -4,20 +4,20 @@ metadata:
   generation: 1
   labels:
     kubevirt.io/os: linux
-  name: backend-server
+  name: frontend-server
   namespace: legacy-company
 spec:
   running: true
   template:
     metadata:
       labels:
-        kubevirt.io/domain: backend-server
+        kubevirt.io/domain: frontend-server
     spec:
       nodeSelector:
-        kubernetes.io/hostname: ip-10-0-134-12.ap-southeast-1.compute.internal 
+        kubernetes.io/hostname: 10.110.56.160
       domain:
         cpu:
-          cores: 3
+          cores: 2
         devices:
           disks:
           - disk:
@@ -32,7 +32,7 @@ spec:
           interfaces:
             - name: default
               bridge: {}
-            - name: backend-server
+            - name: frontend-server
               bridge: {}
         machine:
           type: q35
@@ -42,13 +42,13 @@ spec:
       networks:
         - name: default
           pod: {}
-        - name: backend-server
+        - name: frontend-server
           multus:
-            networkName: backend-server
+            networkName: frontend-server
       volumes:
       - name: disk0
         persistentVolumeClaim:
-          claimName: backend-server-block
+          claimName: frontend-server-block
       - name: cloudinitdisk
         cloudInitNoCloud:
           networkData: |
@@ -58,7 +58,7 @@ spec:
                 dhcp4: true
   dataVolumeTemplates:
   - metadata:
-      name: backend-server-block
+      name: frontend-server-block
     spec:
       pvc:
         # volumeMode: block
@@ -71,4 +71,4 @@ spec:
       source:
         pvc:
           namespace: vm-images
-          name: backend-server-vm-dv
+          name: frontend-server-vm-dv

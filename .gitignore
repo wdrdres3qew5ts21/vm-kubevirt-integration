@@ -1,3 +1,5 @@
 *.iso
 *.img
 *.qcow2
+kubeconfig
+debug*/

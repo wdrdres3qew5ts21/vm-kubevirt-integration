@@ -10,18 +10,6 @@ rules:
   - ""
   resources:
   - configmaps
-  - endpoints
-  - events
-  - persistentvolumeclaims
-  - pods
-  - secrets
-  - services
-  verbs:
-  - '*'
-- apiGroups:
-  - ""
-  resources:
-  - configmaps
   - namespaces
   - serviceaccounts
   verbs:
@@ -71,6 +59,18 @@ metadata:
   name: nmstate-operator
   namespace: 'nmstate'
 rules:
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  - endpoints
+  - events
+  - persistentvolumeclaims
+  - pods
+  - secrets
+  - services
+  verbs:
+  - '*'
 - apiGroups:
   - apps
   resources:

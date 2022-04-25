@@ -27,10 +27,8 @@ spec:
       priorityClassName: system-cluster-critical
       containers:
         - name: nmstate-operator
-          args:
-          - --zap-time-encoding=iso8601
           # Replace this with the built image name
-          image: quay.io/nmstate/kubernetes-nmstate-operator:v0.68.0
+          image: quay.io/nmstate/kubernetes-nmstate-operator:v0.64.13
           imagePullPolicy: Always
           command:
           - manager
@@ -50,7 +48,7 @@ spec:
             - name: RUN_OPERATOR
               value: ""
             - name: RELATED_IMAGE_HANDLER_IMAGE
-              value: quay.io/nmstate/kubernetes-nmstate-handler:v0.68.0
+              value: quay.io/nmstate/kubernetes-nmstate-handler:v0.64.13
             - name: HANDLER_IMAGE_PULL_POLICY
               value: Always
             - name: HANDLER_NAMESPACE

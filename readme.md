@@ -115,7 +115,7 @@ virtctl expose vmi fedora --name=fedora-ssh-port --port=20222 --target-port=22
 
 virtctl image-upload --pvc-name=win10-home --image-path="$PWD/win10.iso"  --size=5.5Gi  --insecure
 
-virtctl image-upload dv fedora35-iso-dv --image-path="$PWD/fedora-35-server.iso"  --size=5.5Gi  --insecure
+virtctl image-upload dv fedora35-iso-dv   -n vm-images --image-path="$PWD/fedora-35-server.iso"  --size=5.5Gi  --insecure
 ```
 ### Image ใช้จริงอยู่ตรงนี้
 ### Need using IMG or QCOW2 format for automatic boot system
@@ -131,7 +131,8 @@ virtctl image-upload dv  backend-server-vm-dv   -n vm-images --image-path="$PWD/
 
 virtctl image-upload dv  ubuntu20-cloud-dv   -n vm-images --image-path="$PWD/ubuntu-20-server.img" --size=5.5Gi --insecure
 
-virtctl image-upload dv fedora35-cloud-dv  -n vm-images --image-path="$PWD/fedora-35-cloud.qcow2"  --size=5.5Gi  --insecure
+virtctl image-upload dv fedora35-cloud-dv  -n vm-images --image-path="$PWD/fedora-35-cloud.qcow2"  --size=2Gi  --insecure
+virtctl image-upload pvc fedora35-cloud-dv  -n vm-images --image-path="$PWD/fedora-35-cloud.qcow2"  --size=2Gi  --insecure
 
 oc new-project legacy-company
 
@@ -411,6 +412,9 @@ https://github.com/kubevirt/kubevirt/issues/5483
 ```
 brctl show
 
+# ใช้คำสั่งนี้แทน brctl ได้ในการดู bridge
+ip link show type bridge
+
 ip link show master brse
 
 ip netns list
@@ -518,3 +522,35 @@ https://bugzilla.redhat.com/show_bug.cgi?id=1328503
 https://bugzilla.redhat.com/show_bug.cgi?id=1897563
 
 https://askubuntu.com/questions/710392/java-8-oracle-1-8-0-66-problem-with-printassembly-could-not-load-hsdis-amd64
+
+
+
+### Forward ไปหา Private Network
+ต้องใช้ domian internal เหมือนเดิมเพราะว่า Certificate นั้นผูกไว้กับ Domain ที่เรียก เราเลยต้องแก้ที่ `/etc/hosts` แทนเพื่อให้รักษา Certificate ที่ Signining Domain เอาไว้
+
+semanage fcontext -a -t container_file_t  "$(pwd)/nginx(/.*)?"
+restorecon -Rv  nginx/
+
+podman run -p 3030:3030 -d -v /home/lab-user/nginx/:/etc/nginx/conf.d docker.io/nginx:1.21.6-perl
+
+podman run  -p 3030:3030  -d quay.io/linxianer12/proxy-openshift-kubevirt-lab:0.0.1
+
+
+
+-v /home/lab-user/nginx/:/etc/nginx/conf.d
+
+sudo su
+
+firewall-cmd --add-port=3030/tcp --permanent
+
+firewall-cmd --reload
+
+export KUBECONFIG=/home/lab-user/scripts/ocp/auth/kubeconfig
+
+export KUBECONFIG=/Users/supakorn.t/ProjectCode/kubevirt-thesis/kubeconfig
+
+docker build -t quay.io/linxianer12/proxy-openshift-kubevirt-lab:0.0.1
+
+
+บั้ค NMState ทำ Network หลุด
+https://bugzilla.redhat.com/show_bug.cgi?id=2037411

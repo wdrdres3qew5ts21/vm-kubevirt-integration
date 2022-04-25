@@ -14,7 +14,7 @@ spec:
         kubevirt.io/domain: database-server
     spec:
       nodeSelector:
-        kubernetes.io/hostname: 10.110.56.160
+        kubernetes.io/hostname: ip-10.0.225.13.ap-southeast-1.compute.internal
       domain:
         cpu:
           cores: 2

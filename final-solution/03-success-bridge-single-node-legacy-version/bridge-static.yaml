@@ -28,24 +28,16 @@ spec:
   config: >-
     {
       "cniVersion": "0.3.1",
-      "name": "backend-server",
-      "plugins": [
-        {
-        "type": "bridge",
-        "bridge": "brse",
-        "ipam": {
-          "type": "static",
-          "addresses": [
-                {
-                  "address": "192.168.18.4/24"
-                }
-              ]
-          }
-        },
-        {
-          "type": "tuning"
+      "type": "bridge",
+      "bridge": "brse",
+      "ipam": {
+        "type": "static",
+        "addresses": [
+              {
+                "address": "192.168.18.4/24"
+              }
+            ]
         }
-      ]
     }
 ---
 kind: NetworkAttachmentDefinition
@@ -57,24 +49,16 @@ spec:
   config: >-
     {
       "cniVersion": "0.3.1",
-      "name": "database-server",
-      "plugins": [
-        {
-        "type": "bridge",
-        "bridge": "brse",
-        "ipam": {
-          "type": "static",
-          "addresses": [
-                {
-                  "address": "192.168.18.5/24"
-                }
-              ]
-          }
-        },
-        {
-          "type": "tuning"
+      "type": "bridge",
+      "bridge": "brse",
+      "ipam": {
+        "type": "static",
+        "addresses": [
+              {
+                "address": "192.168.18.5/24"
+              }
+            ]
         }
-      ]
     }
 ---
 kind: NetworkAttachmentDefinition

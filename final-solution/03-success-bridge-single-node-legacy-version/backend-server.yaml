@@ -1,4 +1,4 @@
-apiVersion: kubevirt.io/v1
+apiVersion: kubevirt.io/v1alpha3
 kind: VirtualMachine
 metadata:
   generation: 1
@@ -13,22 +13,22 @@ spec:
       labels:
         kubevirt.io/domain: backend-server
     spec:
-      nodeSelector:
-        kubernetes.io/hostname: ip-10-0-134-12.ap-southeast-1.compute.internal 
+      # nodeSelector:
+      #   kubernetes.io/hostname: 10.110.56.160
       domain:
         cpu:
-          cores: 3
+          cores: 2
         devices:
           disks:
           - disk:
               bus: virtio
             name: disk0
-            bootOrder: 2
-          - cdrom:
-              bus: sata
-              readonly: true
-            name: cloudinitdisk
             bootOrder: 1
+          # - cdrom:
+          #     bus: sata
+          #     readonly: true
+          #   name: cloudinitdisk
+          #   bootOrder: 1
           interfaces:
             - name: default
               bridge: {}
@@ -49,25 +49,25 @@ spec:
       - name: disk0
         persistentVolumeClaim:
           claimName: backend-server-block
-      - name: cloudinitdisk
-        cloudInitNoCloud:
-          networkData: |
-            version: 2
-            ethernets:
-              eth0: 
-                dhcp4: true
+      # - name: cloudinitdisk
+      #   cloudInitNoCloud:
+      #     networkData: |
+      #       version: 2
+      #       ethernets:
+      #         eth0: 
+      #           dhcp4: true
   dataVolumeTemplates:
   - metadata:
       name: backend-server-block
     spec:
       pvc:
-        # volumeMode: block
-        # storageClassName: managed-premium
+        volumeMode: block
+        storageClassName: ocs-storagecluster-ceph-rbd
         accessModes:
         - ReadWriteOnce
         resources:
           requests:
-            storage: 50Gi
+            storage: 30Gi
       source:
         pvc:
           namespace: vm-images
