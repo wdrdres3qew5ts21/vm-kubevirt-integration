@@ -138,6 +138,9 @@ oc new-project legacy-company
 
 # Maybe not require anymore ?
 oc adm policy add-scc-to-user  ibm-anyuid-hostaccess-scc  -z default
+
+oc proeject legacy-company
+oc adm policy add-scc-to-user privileged  -z default
 ```
 
 # Using `./tool` for Debug about Network to Virtual Machine Pod
@@ -566,7 +569,7 @@ gdown https://drive.google.com/uc?id=1L7yh-lSS-fMLoF_VaVcMh7oW1ZF0MFnV
 
 gdown https://drive.google.com/uc?id=11hL6vi57S7poek7PTtR53ZTMBEANQPmz
 
-gdown https://drive.google.com/uc?id=1kQjbCmCdlxi4gI5RIT3ugHkq0uOSq-N-
+gdown https://drive.google.com/uc?id=1-HRJR3MIEo84XRsHKAlURyVsygm1j5gh
 ```
 
 
