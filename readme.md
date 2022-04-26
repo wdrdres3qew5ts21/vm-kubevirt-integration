@@ -313,7 +313,8 @@ password: lnwza007
 ต้อง dump vmdk format ออกมาด้วยคำสั่งนี้ 
 ```
 VBoxManage clonehd  --format VMDK data-server.vmdk data-server.img
-VBoxManage clonehd  --format VMDK data-server.vmdk data-server.vmdk
+
+VBoxManage clonehd  --format RAW data-server.vmdk backend-server-final.img
 ```
 
 https://blogs.oracle.com/cloud-infrastructure/post/running-kvm-and-vmware-vms-in-container-engine-for-kubernetes
