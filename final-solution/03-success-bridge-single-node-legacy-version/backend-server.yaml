@@ -61,8 +61,8 @@ spec:
       name: backend-server-block
     spec:
       pvc:
-        volumeMode: block
-        storageClassName: ocs-storagecluster-ceph-rbd
+        # volumeMode: block
+        # storageClassName: ocs-storagecluster-ceph-rbd
         accessModes:
         - ReadWriteOnce
         resources:
