@@ -620,3 +620,6 @@ REDHAT_SUPPORT_PRODUCT="Red Hat Enterp
 ```
 
 
+### Expose Service ให้ใช้ได้กับ VM 
+
+virtctl expose vmi backend-server --port=9090 --target-port=9090 --name backend-server
