@@ -13,8 +13,8 @@ spec:
       labels:
         kubevirt.io/domain: frontend-server
     spec:
-      nodeSelector:
-        kubernetes.io/hostname: 10.110.56.160
+      # nodeSelector:
+      #   kubernetes.io/hostname: worker-0.ocp.example.com 
       domain:
         cpu:
           cores: 2
