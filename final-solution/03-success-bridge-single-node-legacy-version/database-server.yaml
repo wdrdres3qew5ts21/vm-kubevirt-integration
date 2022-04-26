@@ -13,8 +13,8 @@ spec:
       labels:
         kubevirt.io/domain: database-server
     spec:
-      nodeSelector:
-        kubernetes.io/hostname: 10.110.56.160
+      # nodeSelector:
+      #   kubernetes.io/hostname: 10.110.56.160
       domain:
         cpu:
           cores: 2
@@ -23,12 +23,12 @@ spec:
           - disk:
               bus: virtio
             name: disk0
-            bootOrder: 2
-          - cdrom:
-              bus: sata
-              readonly: true
-            name: cloudinitdisk
             bootOrder: 1
+          # - cdrom:
+          #     bus: sata
+          #     readonly: true
+          #   name: cloudinitdisk
+          #   bootOrder: 1
           interfaces:
             - name: default
               bridge: {}
@@ -49,13 +49,13 @@ spec:
       - name: disk0
         persistentVolumeClaim:
           claimName: database-server-block
-      - name: cloudinitdisk
-        cloudInitNoCloud:
-          networkData: |
-            version: 2
-            ethernets:
-              eth0: 
-                dhcp4: true
+      # - name: cloudinitdisk
+      #   cloudInitNoCloud:
+      #     networkData: |
+      #       version: 2
+      #       ethernets:
+      #         eth0: 
+      #           dhcp4: true
   dataVolumeTemplates:
   - metadata:
       name: database-server-block
