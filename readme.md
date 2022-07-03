@@ -12,27 +12,6 @@ Repo: https://github.com/wdrdres3qew5ts21/vm-kubevirt-integration (Structure/Ass
 https://github.com/wdrdres3qew5ts21/coredns-integration-operator (Golang Coding)
 
 
-#### สิ่งที่ CRD ควรจะทำได้
-
-ความสามารถ
-คำอธิบาย
-Auto Discovery Pod Virtual Machine (feature หลักต้องทำ)
-ด้วยการที่ Pod ใน Kubernetes นั้นสามารถถูกปิดและเกิดใหม่เรื่อยๆและ IP ของ Interface หลักอาจจะเปลี่ยนไปเรื่อยๆตัว DNS จึงแตกต่างจาก DNS Record ปกติที่ IP ไม่มีการเปลี่ยน (หรือไม่ได้เปลี่ยนเรื่อยๆบ่อยๆ) จึงน่าจะใช้เทคนิคเดียวกับ Kubernetes Service ปกติคือกาใช้ Operator ไปต่อกับ Kubernetes API เพื่อดึง Label นำ IP ของ Pod เพื่อทำการ Mapping กับ Interface ของ IP จาก Multus
-Automate Configure Network Topology
-(feature รองแต่มีประโยชน์)
-สำหรับกรณีที่ Subnet ต้องมีการทำ Routing ข้ามระหว่าง Subnet ควรจะมี Feature ที่ CRD สามารถไปสร้าง Network ที่จำเป็นให้ได้เพื่อลดงาน Admin ที่ดูแลระบบ
-
-
-
-#### ความคืบหน้าปัจจุบัน
-สามารถสร้างโครง Operator ด้วย Golang และควบคุม Resource เพื่อทำ Reconcile ใน Kubernetes ได้ว่ามี Object หรือ Resource ที่ต้องสร้างใดบ้าง
-ขั้นตอนต่อไป: ต้องสามารถสร้าง CoreDNS ที่ Mapping กับ Pod Virtual Machine เพื่อทำเป้น DNS Record โดยผู้ดูแลระบบไม่ต้อง Config ผ่าน Linux โดยตรงแต่ควรสามารถ Config จาก CRD ได้และ Operator ทำการแก้ไขอัพเดท DNS  Record ที่ Map กับ Pod Virtual machine เอง (feature หลักต้องทำ)
-สามารถสร้าง Pod ที่มีหลาย Network Interface ได้และเชื่อมต่อข้ามกันระหว่าง Subnet ได้ผ่าน Pod Router แต่กระบวนการเชื่อม Routing ยังทำ manual ด้วยการ exec เข้าไปใน pod 
-ขั้นตอนต่อไป: ผู้ดูแลระบบไม่ควรที่จะต้องเข้าไป manual configure คำสั่ง linux ตรงๆใน Pod เพื่อทำ Routing เอง แต่ควรจะสามารถ Config ผ่านคำสั่ง High Level ผ่าน ได้ง่ายๆจาก CRD ได้ (feature รองแต่มีประโยชน์ที่จะทำเพื่อให้โปรเจคสมบูรณ์ใช้ได้จริง - แต่ในโครงร่างไม่ได้ระบุเน้นเรื่อง Subnet ที่แตกต่างกันครับเขียนแค่ Subnet Network ในวงเดียวกัน)
- มีตัวอย่างร่างของ Pod CoreDNS ที่ Mapping Private DNS กับ Pod ได้ ด้วยวิธี Manual จากเทอมที่แล้วที่อยู่ในเล่มโครงร่างครับ
- ขั้นตอนต่อไป: เชื่อมข้อ 1) และ 2) เข้าด้วยกันเพื่อให้สามารถทำได้ผ่านเครื่อง Virtual machine Pod จริงๆมากกว่าแค่ Pod Kubernetes ปกติ (ปัจจุบันทดสอบบน Pod ปกติเป็นหลัก)
-
-
 ```json
 Client Version: version.Info{GitVersion:"v0.44.1", GitCommit:"01805c72083902832ecbd08559f4d3aa88110ea1", GitTreeState:"clean", BuildDate:"2021-08-12T12:35:53Z", GoVersion:"go1.16.6", Compiler:"gc", Platform:"darwin/amd64"}
 
