@@ -471,42 +471,6 @@ docker run -p 8080:8080 quay.io/linxianer12/todoapp-frontend:1.0.0
 
 docker run -p 8080:9090  quay.io/linxianer12/subject-reservation-service:b0dff8a-dirty
 
-Java Virtual Machine มีปัญหาเมื่อนำ VM จาก Mac ไปใช้
-```
-2022-04-11 16:01:07.278  INFO [hello-world,,,] 1 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$91bfcc6f] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-[CodeBlob (0x00007f0bf42ccb50)]
-Framesize: 84
-Runtime Stub (0x00007f0bf42ccb50): ic_miss_stub
-Could not load hsdis-amd64.so; library not loadable; PrintAssembly is disabled
-#
-# A fatal error has been detected by the Java Runtime Environment:
-#
-#  Internal Error (sharedRuntime.cpp:842), pid=1, tid=0x00007f0c04fd9ae8
-#  fatal error: exception happened outside interpreter, nmethods and vtable stubs at pc 0x00007f0bf42ccc06 
-#
-# JRE version: OpenJDK Runtime Environment (8.0_171-b11) (build 1.8.0_171-b11)
-# Java VM: OpenJDK 64-Bit Server VM (25.171-b11 mixed mode linux-amd64 compressed oops)
-# Derivative: IcedTea 3.8.0
-# Distribution: Custom build (Wed Jun 13 18:28:11 UTC 2018)
-# Core dump written. Default location: //core or core.1
-#
-# An error report file with more information is saved as:
-# //hs_err_pid1.log
-#
-# If you would like to submit a bug report, please include
-# instructions on how to reproduce the bug and visit: 
-#   http://icedtea.classpath.org/bugzilla
-#
-```
-บั้ค JVM Instruction
-https://github.com/elastic/elasticsearch/issues/49178
-
-https://bugzilla.redhat.com/show_bug.cgi?id=1328503
-
-https://bugzilla.redhat.com/show_bug.cgi?id=1897563
-
-https://askubuntu.com/questions/710392/java-8-oracle-1-8-0-66-problem-with-printassembly-could-not-load-hsdis-amd64
-
 
 
 ### Forward ไปหา Private Network
